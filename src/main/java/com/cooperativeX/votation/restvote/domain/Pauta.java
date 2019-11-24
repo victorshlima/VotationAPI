@@ -1,9 +1,6 @@
 package com.cooperativeX.votation.restvote.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
@@ -20,21 +17,37 @@ public class Pauta extends AbstractEntity {
     private int status;
     //converter para constante
 
-    @Column(nullable = true)
-    private Sessao session;
+//
+//    @Column(nullable = true)
+//  //  @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Session.class)
+//    private List Session;
 
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Vote.class)
-    private List Vote;
+    private List vote;
+
 
 
     public List getVote() {
-        return Vote;
+        return vote;
     }
 
-    public void setVote(List vote) {
-        Vote = vote;
+    public void setVote(Vote vote) {
+        this.vote.add(vote);
     }
+//    public void setSession(List session) {
+//        Session = session;
+//    }
+//
+//    public List getSession() {
+//        return Session;
+//    }
+//
+//    public void setSession(Session session) {
+//        this.Session.add(session);
+//    }
+
+
 
     public int getTheme() {
         return theme;
@@ -52,11 +65,5 @@ public class Pauta extends AbstractEntity {
         this.status = status;
     }
 
-    public Sessao getSession() {
-        return session;
-    }
 
-    public void setSession(Sessao sessionTime) {
-        this.session = sessionTime;
-    }
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 //@Controller
 @RestController
-@RequestMapping("/votation")
+@RequestMapping("")
 public class VotationRestController {
 
     static final Logger logger = LogManager.getLogger(VotationRestController.class.getName());
@@ -30,7 +30,7 @@ public class VotationRestController {
         this.voteDao = voteDao;
     }
 
-    @PostMapping
+    @PostMapping("/vote")
     public ResponseEntity<Void> save(@RequestBody Vote vote) {
 
         logger.trace(" @PostMapping - save");

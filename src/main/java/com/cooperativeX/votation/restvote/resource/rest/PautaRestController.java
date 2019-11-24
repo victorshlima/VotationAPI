@@ -2,6 +2,7 @@ package com.cooperativeX.votation.restvote.resource.rest;
 
 import com.cooperativeX.votation.restvote.dao.PautaDao;
 import com.cooperativeX.votation.restvote.domain.Pauta;
+import com.cooperativeX.votation.restvote.domain.Session;
 import com.cooperativeX.votation.restvote.service.VotationServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,7 +33,7 @@ public class PautaRestController {
         this.pautaDao = pautaDao;
     }
 
-    @PostMapping
+    @PostMapping("/AddPauta")
     public ResponseEntity<Void> save(@RequestBody Pauta pauta) {
         logger.trace(" @PostMapping - save");
         votationService.PautaCreate(pauta);
@@ -45,7 +46,23 @@ public class PautaRestController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping
+    @PostMapping("/InitVotation")
+    public ResponseEntity<Void> save(@RequestBody Session session) {
+        logger.trace(" @PostMapping - save");
+
+        votationService.openSession(session);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(session.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+
+
+    @GetMapping("/List")
     @ResponseStatus(HttpStatus.OK)
     public List<Pauta> listar() {
         return pautaDao.findAll();
