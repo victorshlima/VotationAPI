@@ -1,7 +1,9 @@
 package com.cooperativeX.votation.restvote.resource.rest;
 
-import com.cooperativeX.votation.restvote.domain.ContaCorrente;
-import com.cooperativeX.votation.restvote.dao.ContaDao;
+import com.cooperativeX.votation.restvote.dao.PautaDao;
+import com.cooperativeX.votation.restvote.dao.VoteDao;
+import com.cooperativeX.votation.restvote.domain.Pauta;
+import com.cooperativeX.votation.restvote.domain.Vote;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,40 +14,42 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 //@Controller
 @RestController
-@RequestMapping("/transfs")
-public class ContaRestController {
+@RequestMapping("/votation")
+public class VotationRestController {
 
-    static final Logger logger = LogManager.getLogger(ContaRestController.class.getName());
+    static final Logger logger = LogManager.getLogger(VotationRestController.class.getName());
 
-    private final ContaDao contaDao;
+    private final VoteDao voteDao;
     @Autowired
-    public ContaRestController(ContaDao contaDao)
+    public VotationRestController(VoteDao voteDao)
     {
-        this.contaDao = contaDao;
+        this.voteDao = voteDao;
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody ContaCorrente conta) {
+    public ResponseEntity<Void> save(@RequestBody Vote vote) {
+
         logger.trace(" @PostMapping - save");
-        contaDao.save(conta);
+        voteDao.save(vote);
+
+
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(conta.getId())
+                .buildAndExpand(vote.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ContaCorrente> listar() {
-        return contaDao.findAll();
+    public List<Vote> listar() {
+        return voteDao.findAll();
     }
-
-
 
 //    @GetMapping
 //    @ResponseStatus(HttpStatus.OK)

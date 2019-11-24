@@ -1,9 +1,8 @@
 package com.cooperativeX.votation.restvote.resource.rest;
 
-import com.cooperativeX.votation.restvote.dao.ContaDao;
 import com.cooperativeX.votation.restvote.dao.PautaDao;
-import com.cooperativeX.votation.restvote.domain.ContaCorrente;
 import com.cooperativeX.votation.restvote.domain.Pauta;
+import com.cooperativeX.votation.restvote.service.VotationServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,17 @@ import java.util.List;
 
 //@Controller
 @RestController
-@RequestMapping("/votation")
+@RequestMapping("/theme")
 public class PautaRestController {
 
     static final Logger logger = LogManager.getLogger(PautaRestController.class.getName());
 
-    private final PautaDao pautaDao;
     @Autowired
+    private VotationServiceImpl votationService;
+
+    private final PautaDao pautaDao;
+
+     @Autowired
     public PautaRestController(PautaDao pautaDao)
     {
         this.pautaDao = pautaDao;
@@ -32,7 +35,8 @@ public class PautaRestController {
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody Pauta pauta) {
         logger.trace(" @PostMapping - save");
-        pautaDao.save(pauta);
+        votationService.PautaCreate(pauta);
+
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -46,13 +50,5 @@ public class PautaRestController {
     public List<Pauta> listar() {
         return pautaDao.findAll();
     }
-
-
-
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public String listar() {
-//        return "34werwer";
-//    }
 
 }
