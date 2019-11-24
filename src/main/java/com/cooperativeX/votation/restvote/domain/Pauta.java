@@ -8,26 +8,18 @@ import javax.persistence.Entity;
 @Entity
 public class Pauta extends AbstractEntity {
 
-    @Column(nullable = false, length = 6)
-    private int Descricacao;
+    @Column(nullable = false)
+    private int theme;
 
-    @Column(nullable = false, length = 6)
-    private int Status;
+    @Column(nullable = false)
+    private int status;
+    //converter para constante
+
+//    @Column(nullable = false)
+//    private Sessao sessionTime;
+//
+//    @Column(nullable = false)
+//    private Vote voto;
 
 
-    public int getDescricacao() {
-        return Descricacao;
-    }
-
-    public void setDescricacao(int descricacao) {
-        Descricacao = descricacao;
-    }
-
-    public int getStatus() {
-        return Status;
-    }
-
-    public void setStatus(int status) {
-        Status = status;
-    }
 }
