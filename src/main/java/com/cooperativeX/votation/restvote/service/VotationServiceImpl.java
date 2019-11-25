@@ -45,9 +45,9 @@ public class VotationServiceImpl
     }
 
     public void openSession(Session session) {
-        Agenda pauta = getAgenda(session.getAgendaId());
-        pauta.setsession(session);
-        agendaDao.save(pauta);
+        Agenda agenda = getAgenda(session.getAgendaId());
+        agenda.setsession(session);
+        agendaDao.save(agenda);
      }
 
     public Session verifySessionDuration(Session session) {
@@ -65,21 +65,21 @@ public class VotationServiceImpl
 
     public void verify(Session session) {
         sessionDao.save(session);
-        Agenda pauta = getAgenda(session.getAgendaId());
-        pauta.setsession(session);
-        agendaDao.save(pauta);
+        Agenda agenda = getAgenda(session.getAgendaId());
+        agenda.setsession(session);
+        agendaDao.save(agenda);
     }
 
 
     public Agenda getAgenda(Long topicId) {
-        Optional<Agenda> pautaOptional = agendaDao.findById(topicId);
-       validateTopicPresence(pautaOptional);
-        return pautaOptional.get();
+        Optional<Agenda> agendaOptional = agendaDao.findById(topicId);
+       validateTopicPresence(agendaOptional);
+        return agendaOptional.get();
     }
 
-    private void validateTopicPresence(Optional<Agenda> pautaOptional) {
-        if (!pautaOptional.isPresent()) {
-            throw new NotExistDaoException("Error pauta not found");
+    private void validateTopicPresence(Optional<Agenda> agendaOptional) {
+        if (!agendaOptional.isPresent()) {
+            throw new NotExistDaoException("Error agenda not found");
         }
     }
 
