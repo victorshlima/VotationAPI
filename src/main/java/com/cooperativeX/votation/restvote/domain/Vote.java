@@ -1,7 +1,5 @@
 package com.cooperativeX.votation.restvote.domain;
 
-import org.springframework.jmx.export.annotation.ManagedResource;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -11,7 +9,7 @@ import javax.persistence.Entity;
 public class Vote extends AbstractEntity {
 
     @Column(nullable = true)
-    private long themeId;
+    private long agendaId;
 
     @Column(nullable = true)
     private int associateId;
@@ -19,10 +17,10 @@ public class Vote extends AbstractEntity {
     @Column(nullable = true)
     private String voteOption;
 
-    public long getThemeId() {        return themeId;    }
+    public long getAgendaId() {        return agendaId;    }
 
-    public void setThemeId(long themeId) {
-        this.themeId = themeId;
+    public void setAgendaId(long agendaId) {
+        this.agendaId = agendaId;
     }
 
     public int getAssociateId() {

@@ -24,28 +24,54 @@ public class VotationServiceImpl
     @Autowired
     SessionDao sessionDao;
 
+   private Session session;
 
     public void PautaCreate(Agenda pauta) {
-        agendaDao.save(pauta);
-     }
+       agendaDao.save(pauta);
+    }
 
     public void addVote(Vote vote) {
-        voteDao.save(vote);
-        System.out.println(vote.getThemeId());
-        Agenda pauta = obtainTopic(vote.getThemeId());
+        Agenda pauta = getAgenda(vote.getAgendaId());
+
         pauta.setVote(vote);
-        System.out.println( pauta.getVote().get(0));
+        voteDao.save(vote);
         agendaDao.save(pauta);
     }
 
-    public void openSession(Session session) {
+
+    public void openCreate(Session session) {
+        this.session = verifySessionDuration(session);
         sessionDao.save(session);
-        Agenda pauta = obtainTopic(session.getId());
+    }
+
+    public void openSession(Session session) {
+        Agenda pauta = getAgenda(session.getAgendaId());
         pauta.setsession(session);
         agendaDao.save(pauta);
      }
 
-    public Agenda obtainTopic(Long topicId) {
+    public Session verifySessionDuration(Session session) {
+        if( session.getDurationMinutes() == null){
+            this.session.setDurationMinutes(60);
+        }
+        return this.session;
+    }
+
+    public Session verifySessionStatus(Session session) {
+
+        return this.session;
+    }
+
+
+    public void verify(Session session) {
+        sessionDao.save(session);
+        Agenda pauta = getAgenda(session.getAgendaId());
+        pauta.setsession(session);
+        agendaDao.save(pauta);
+    }
+
+
+    public Agenda getAgenda(Long topicId) {
         Optional<Agenda> pautaOptional = agendaDao.findById(topicId);
        validateTopicPresence(pautaOptional);
         return pautaOptional.get();

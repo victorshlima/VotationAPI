@@ -7,19 +7,19 @@ import javax.persistence.Entity;
 public class Session extends AbstractEntity {
 
     @Column(nullable = true)
-    private String themeId;
+    private long agendaId;
 
     @Column(nullable = true)
     private String sessionStatus;
 
     @Column(nullable = true)
-    private String startVotation;
+    private int startVotation;
 
     @Column(nullable = true)
-    private String endVotation;
+    private int endVotation;
 
     @Column(nullable = true)
-    private int minutes;
+    private Integer durationMinutes;
 
     public String getSessionStatus() {
         return sessionStatus;
@@ -27,5 +27,24 @@ public class Session extends AbstractEntity {
 
     public void setSessionStatus(String sessionStatus) {
         this.sessionStatus = sessionStatus;
+    }
+
+    public long getAgendaId() { return agendaId;    }
+
+    public void setAgendaId(long agendaId) { this.agendaId = agendaId;    }
+
+    public int getStartVotation() { return startVotation;    }
+
+    public void setStartVotation(int startVotation) { this.startVotation = startVotation;    }
+
+    public int getEndVotation() {  return endVotation;    }
+
+    public void setEndVotation(int endVotation) {  this.endVotation = endVotation;    }
+
+    public Integer getDurationMinutes() {     return durationMinutes;
+    }
+
+    public void setDurationMinutes(Integer durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 }

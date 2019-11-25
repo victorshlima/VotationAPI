@@ -10,7 +10,7 @@ import static javax.persistence.CascadeType.ALL;
 public class Agenda extends AbstractEntity {
 
     @Column(nullable = false)
-    private int subject;
+    private String subject;
 
     @Column(nullable = true)
     @OneToMany( cascade = ALL, targetEntity = Session.class)
@@ -19,7 +19,6 @@ public class Agenda extends AbstractEntity {
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Vote.class)
     private List vote;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     private Result result;
@@ -47,11 +46,11 @@ public class Agenda extends AbstractEntity {
         this.vote.add(vote);
     }
 
-    public int getSubject() {
+    public String getSubject() {
         return subject;
     }
 
-    public void setSubject(int subject) {
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 

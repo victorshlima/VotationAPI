@@ -27,11 +27,8 @@ public class AgendaRestController {
 
     @Autowired
     private VotationServiceImpl votationService;
-
     private final AgendaDao agendaDao;
-
     private final SessionDao sessionDao;
-
     private final VoteDao voteDao;
 
      @Autowired
@@ -43,10 +40,9 @@ public class AgendaRestController {
     }
 
     @PostMapping("/AddPauta")
-    public ResponseEntity<Void> save(@RequestBody Agenda pauta) {
-        logger.trace(" @PostMapping - save");
+    public ResponseEntity<Void> AddPauta(@RequestBody Agenda pauta) {
+        logger.trace(" @PostMapping - AddPauta");
         votationService.PautaCreate(pauta);
-
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -55,26 +51,10 @@ public class AgendaRestController {
         return ResponseEntity.created(location).build();
     }
 
-//    @PostMapping("/InitVotation")
-//    public ResponseEntity<Void> save(@RequestBody Session session) {
-//        logger.trace(" @PostMapping - save");
-//
-//        votationService.openSession(session);
-//
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(session.getId())
-//                .toUri();
-//        return ResponseEntity.created(location).build();
-//    }
-
     @PostMapping("/sendvote")
-    public ResponseEntity<Void> save(@RequestBody Vote vote ) {
-        logger.trace(" @PostMapping - save");
-
+    public ResponseEntity<Void> sendvote(@RequestBody Vote vote ) {
+        logger.trace(" @PostMapping - sendvote");
         votationService.addVote(vote);
-
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -84,11 +64,10 @@ public class AgendaRestController {
     }
 
     @PostMapping("/openSession")
-    public ResponseEntity<Void> save(@RequestBody Session session ) {
-        logger.trace(" @PostMapping - save");
-
+    public ResponseEntity<Void> openSession(@RequestBody Session session ) {
+        logger.trace(" @PostMapping - openSession");
+        votationService.openCreate(session);
         votationService.openSession(session);
-
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -99,19 +78,19 @@ public class AgendaRestController {
 
     @GetMapping("/List")
     @ResponseStatus(HttpStatus.OK)
-    public List<Agenda> listarPautas() {
+    public List<Agenda> AgendaFindAll() {
         return agendaDao.findAll();
     }
 
     @GetMapping("/getvotes")
     @ResponseStatus(HttpStatus.OK)
-    public List<Vote> listarVotes() {
+    public List<Vote> VotesFindAll() {
         return voteDao.findAll();
     }
 
     @GetMapping("/getsessions")
     @ResponseStatus(HttpStatus.OK)
-    public List<Session> listarSessions() {
+    public List<Session> SessionsFindAll() {
         return sessionDao.findAll();
     }
 
