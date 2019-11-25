@@ -20,7 +20,7 @@ import java.util.List;
 
 //@Controller
 @RestController
-@RequestMapping("/theme")
+@RequestMapping("/agenda")
 public class AgendaRestController {
 
     static final Logger logger = LogManager.getLogger(AgendaRestController.class.getName());

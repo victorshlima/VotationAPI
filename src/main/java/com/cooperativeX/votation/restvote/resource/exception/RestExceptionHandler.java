@@ -45,7 +45,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
          logger.error(ex.getMessage());
          return handleExceptionInternal(
                  ex, DetailError.builder()
-                         .addDetail("Violated constraint: " + ex.getConstraintName()) //Não retorno o campo, mas é possivel
+                         .addDetail("Violated constraint: " + ex.getConstraintName())
                          .addErro(ex.getMessage())
                          .addStatus(HttpStatus.CONFLICT)
                          .addHttpMethod(getHttpMethod(request))
