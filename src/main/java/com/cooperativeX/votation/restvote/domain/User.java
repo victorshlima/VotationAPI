@@ -1,8 +1,5 @@
 package com.cooperativeX.votation.restvote.domain;
 
-//import org.hibernate.annotations.Entity;
-
-
 import javax.persistence.Column;
 
 public class User extends AbstractEntity {

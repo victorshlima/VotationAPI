@@ -1,9 +1,9 @@
 package com.cooperativeX.votation.restvote.resource.rest;
 
-import com.cooperativeX.votation.restvote.dao.PautaDao;
+import com.cooperativeX.votation.restvote.dao.AgendaDao;
 import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
-import com.cooperativeX.votation.restvote.domain.Pauta;
+import com.cooperativeX.votation.restvote.domain.Agenda;
 import com.cooperativeX.votation.restvote.domain.Session;
 import com.cooperativeX.votation.restvote.domain.Vote;
 import com.cooperativeX.votation.restvote.service.VotationServiceImpl;
@@ -21,29 +21,29 @@ import java.util.List;
 //@Controller
 @RestController
 @RequestMapping("/theme")
-public class PautaRestController {
+public class AgendaRestController {
 
-    static final Logger logger = LogManager.getLogger(PautaRestController.class.getName());
+    static final Logger logger = LogManager.getLogger(AgendaRestController.class.getName());
 
     @Autowired
     private VotationServiceImpl votationService;
 
-    private final PautaDao pautaDao;
+    private final AgendaDao agendaDao;
 
     private final SessionDao sessionDao;
 
     private final VoteDao voteDao;
 
      @Autowired
-    public PautaRestController(PautaDao pautaDao,VoteDao voteDao, SessionDao sessionDao)
+    public AgendaRestController(AgendaDao agendaDao, VoteDao voteDao, SessionDao sessionDao)
     {
-        this.pautaDao =  pautaDao;
+        this.agendaDao = agendaDao;
         this.sessionDao =  sessionDao;
         this.voteDao =  voteDao;
     }
 
     @PostMapping("/AddPauta")
-    public ResponseEntity<Void> save(@RequestBody Pauta pauta) {
+    public ResponseEntity<Void> save(@RequestBody Agenda pauta) {
         logger.trace(" @PostMapping - save");
         votationService.PautaCreate(pauta);
 
@@ -99,8 +99,8 @@ public class PautaRestController {
 
     @GetMapping("/List")
     @ResponseStatus(HttpStatus.OK)
-    public List<Pauta> listarPautas() {
-        return pautaDao.findAll();
+    public List<Agenda> listarPautas() {
+        return agendaDao.findAll();
     }
 
     @GetMapping("/getvotes")

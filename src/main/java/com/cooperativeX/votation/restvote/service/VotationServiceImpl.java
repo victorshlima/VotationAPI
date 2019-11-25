@@ -1,10 +1,10 @@
 package com.cooperativeX.votation.restvote.service;
 
 import com.cooperativeX.votation.restvote.Exception.NotExistDaoException;
-import com.cooperativeX.votation.restvote.dao.PautaDao;
+import com.cooperativeX.votation.restvote.dao.AgendaDao;
 import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
-import com.cooperativeX.votation.restvote.domain.Pauta;
+import com.cooperativeX.votation.restvote.domain.Agenda;
 import com.cooperativeX.votation.restvote.domain.Session;
 import com.cooperativeX.votation.restvote.domain.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class VotationServiceImpl
 {
     @Autowired
-    PautaDao pautaDao;
+    AgendaDao agendaDao;
 
     @Autowired
     VoteDao voteDao;
@@ -25,33 +25,33 @@ public class VotationServiceImpl
     SessionDao sessionDao;
 
 
-    public void PautaCreate(Pauta pauta) {
-        pautaDao.save(pauta);
+    public void PautaCreate(Agenda pauta) {
+        agendaDao.save(pauta);
      }
 
     public void addVote(Vote vote) {
         voteDao.save(vote);
         System.out.println(vote.getThemeId());
-        Pauta pauta = obtainTopic(vote.getThemeId());
+        Agenda pauta = obtainTopic(vote.getThemeId());
         pauta.setVote(vote);
         System.out.println( pauta.getVote().get(0));
-        pautaDao.save(pauta);
+        agendaDao.save(pauta);
     }
 
     public void openSession(Session session) {
         sessionDao.save(session);
-        Pauta pauta = obtainTopic(session.getId());
+        Agenda pauta = obtainTopic(session.getId());
         pauta.setsession(session);
-        pautaDao.save(pauta);
+        agendaDao.save(pauta);
      }
 
-    public Pauta obtainTopic(Long topicId) {
-        Optional<Pauta> pautaOptional = pautaDao.findById(topicId);
+    public Agenda obtainTopic(Long topicId) {
+        Optional<Agenda> pautaOptional = agendaDao.findById(topicId);
        validateTopicPresence(pautaOptional);
         return pautaOptional.get();
     }
 
-    private void validateTopicPresence(Optional<Pauta> pautaOptional) {
+    private void validateTopicPresence(Optional<Agenda> pautaOptional) {
         if (!pautaOptional.isPresent()) {
             throw new NotExistDaoException("Error pauta not found");
         }

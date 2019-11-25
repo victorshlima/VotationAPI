@@ -5,17 +5,15 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
-//import org.hibernate.annotations.Entity;
 
 @Entity
-public class Pauta extends AbstractEntity {
+public class Agenda extends AbstractEntity {
 
     @Column(nullable = false)
     private int theme;
 
     @Column(nullable = false)
     private int status;
-    //converter para constante
 
     @Column(nullable = true)
     @OneToMany( cascade = ALL, targetEntity = Session.class)
@@ -38,23 +36,6 @@ public class Pauta extends AbstractEntity {
     public void setVote(Vote vote) {
         this.vote.add(vote);
     }
-
-
-
-
-//    public void setSession(List session) {
-//        Session = session;
-//    }
-//
-//    public List getSession() {
-//        return Session;
-//    }
-//
-//    public void setSession(Session session) {
-//        this.Session.add(session);
-//    }
-
-
 
     public int getTheme() {
         return theme;
