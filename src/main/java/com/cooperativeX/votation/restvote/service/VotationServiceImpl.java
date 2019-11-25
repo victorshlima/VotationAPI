@@ -31,34 +31,19 @@ public class VotationServiceImpl
 
     public void addVote(Vote vote) {
         voteDao.save(vote);
-
         System.out.println(vote.getThemeId());
-
         Pauta pauta = obtainTopic(vote.getThemeId());
-
         pauta.setVote(vote);
         System.out.println( pauta.getVote().get(0));
         pautaDao.save(pauta);
     }
 
     public void openSession(Session session) {
-        Pauta topic = obtainTopic(session.getThemeId());
-
-
-      //  System.out.println(topic.getSession());
-        System.out.println(session.getThemeId());
-
         sessionDao.save(session);
-
-    //    topic.setSession(session);
-        pautaDao.save(topic);
-    }
-
-    public void vote(Vote vote) {
-        Pauta topic = obtainTopic(vote.getId());
-      //  topic.setVote(vote);
-        pautaDao.save(topic);
-    }
+        Pauta pauta = obtainTopic(session.getId());
+        pauta.setsession(session);
+        pautaDao.save(pauta);
+     }
 
     public Pauta obtainTopic(Long topicId) {
         Optional<Pauta> pautaOptional = pautaDao.findById(topicId);

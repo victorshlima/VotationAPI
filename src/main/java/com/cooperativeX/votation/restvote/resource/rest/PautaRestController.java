@@ -83,6 +83,19 @@ public class PautaRestController {
         return ResponseEntity.created(location).build();
     }
 
+    @PostMapping("/openSession")
+    public ResponseEntity<Void> save(@RequestBody Session session ) {
+        logger.trace(" @PostMapping - save");
+
+        votationService.openSession(session);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(session.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
 
     @GetMapping("/List")
     @ResponseStatus(HttpStatus.OK)
@@ -94,6 +107,12 @@ public class PautaRestController {
     @ResponseStatus(HttpStatus.OK)
     public List<Vote> listarVotes() {
         return voteDao.findAll();
+    }
+
+    @GetMapping("/getsessions")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Session> listarSessions() {
+        return sessionDao.findAll();
     }
 
 }

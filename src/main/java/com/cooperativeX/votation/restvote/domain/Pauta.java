@@ -17,24 +17,29 @@ public class Pauta extends AbstractEntity {
     private int status;
     //converter para constante
 
-//
-//   @Column(nullable = true)
-//   @OneToOne(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Session.class)
-//   private List Session;
+    @Column(nullable = true)
+    @OneToMany( cascade = ALL, targetEntity = Session.class)
+    private List session;
 
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Vote.class)
     private List vote;
 
-
+    public List getsession() {
+        return session;
+    }
+    public void setsession(Session session) {
+        this.session.add(session);
+    }
 
     public List getVote() {
         return vote;
     }
-
     public void setVote(Vote vote) {
         this.vote.add(vote);
     }
+
+
 
 
 //    public void setSession(List session) {

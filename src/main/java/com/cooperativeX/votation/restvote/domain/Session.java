@@ -9,26 +9,16 @@ import javax.persistence.Entity;
 public class Session extends AbstractEntity {
 
     @Column(nullable = true)
-    private long themeId;
+    private String sessionStatus;
 
     @Column(nullable = true)
-    private String sessionTime;
+    private String themeId;
 
-    public long getThemeId() {
-        return themeId;
+    public String getSessionStatus() {
+        return sessionStatus;
     }
 
-    public void setThemeId(long themeId) {
-        this.themeId = themeId;
+    public void setSessionStatus(String sessionStatus) {
+        this.sessionStatus = sessionStatus;
     }
-
-    public String getSessionTime() {
-        return sessionTime;
-    }
-
-    public void setSessionTime(String sessionTime) {
-        this.sessionTime = sessionTime;
-    }
-
-
 }
