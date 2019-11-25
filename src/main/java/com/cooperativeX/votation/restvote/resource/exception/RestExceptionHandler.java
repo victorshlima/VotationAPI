@@ -2,11 +2,8 @@
 
 
 
-import com.cooperativeX.votation.restvote.Exception.LimitOverException;
 import com.cooperativeX.votation.restvote.Exception.NotExistDaoException;
 import com.cooperativeX.votation.restvote.domain.DetailError;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +22,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
      @ExceptionHandler({
              NullPointerException.class,
              IllegalArgumentException.class,
-             LimitOverException.class,
              javax.persistence.NoResultException.class
      })
      public ResponseEntity<Object> serverException(RuntimeException ex, WebRequest request) {
