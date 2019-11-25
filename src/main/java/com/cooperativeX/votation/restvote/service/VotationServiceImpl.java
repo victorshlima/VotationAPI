@@ -38,8 +38,6 @@ public class VotationServiceImpl
 
         pauta.setVote(vote);
         System.out.println( pauta.getVote().get(0));
-
-
         pautaDao.save(pauta);
     }
 

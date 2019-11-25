@@ -12,12 +12,7 @@ public class Session extends AbstractEntity {
     private long themeId;
 
     @Column(nullable = true)
-    private int associateId;
-
-    @Column(nullable = true)
     private String sessionTime;
-
-
 
     public long getThemeId() {
         return themeId;
@@ -25,14 +20,6 @@ public class Session extends AbstractEntity {
 
     public void setThemeId(long themeId) {
         this.themeId = themeId;
-    }
-
-    public int getAssociateId() {
-        return associateId;
-    }
-
-    public void setAssociateId(int associateId) {
-        this.associateId = associateId;
     }
 
     public String getSessionTime() {

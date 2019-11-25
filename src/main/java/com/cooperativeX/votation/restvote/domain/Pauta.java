@@ -18,9 +18,9 @@ public class Pauta extends AbstractEntity {
     //converter para constante
 
 //
-//    @Column(nullable = true)
-//  //  @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Session.class)
-//    private List Session;
+//   @Column(nullable = true)
+//   @OneToOne(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Session.class)
+//   private List Session;
 
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Vote.class)

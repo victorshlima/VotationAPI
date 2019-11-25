@@ -70,7 +70,7 @@ public class PautaRestController {
 //    }
 
     @PostMapping("/sendvote")
-    public ResponseEntity<Void> save(@RequestBody Vote vote) {
+    public ResponseEntity<Void> save(@RequestBody Vote vote ) {
         logger.trace(" @PostMapping - save");
 
         votationService.addVote(vote);
