@@ -66,7 +66,7 @@ public class AgendaRestController {
     @PostMapping("/openSession")
     public ResponseEntity<Void> openSession(@RequestBody Session session ) {
         logger.trace(" @PostMapping - openSession");
-        votationService.openCreate(session);
+       votationService.openCreate(session);
         votationService.openSession(session);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

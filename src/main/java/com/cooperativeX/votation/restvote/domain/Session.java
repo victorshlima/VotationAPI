@@ -13,10 +13,10 @@ public class Session extends AbstractEntity {
     private String sessionStatus;
 
     @Column(nullable = true)
-    private int startVotation;
+    private long startVotation;
 
     @Column(nullable = true)
-    private int endVotation;
+    private long endVotation;
 
     @Column(nullable = true)
     private Integer durationMinutes;
@@ -33,13 +33,13 @@ public class Session extends AbstractEntity {
 
     public void setAgendaId(long agendaId) { this.agendaId = agendaId;    }
 
-    public int getStartVotation() { return startVotation;    }
+    public long getStartVotation() { return startVotation;    }
 
-    public void setStartVotation(int startVotation) { this.startVotation = startVotation;    }
+    public void setStartVotation(long startVotation) { this.startVotation = startVotation;    }
 
-    public int getEndVotation() {  return endVotation;    }
+    public long getEndVotation() {  return endVotation;    }
 
-    public void setEndVotation(int endVotation) {  this.endVotation = endVotation;    }
+    public void setEndVotation(long endVotation) {  this.endVotation = endVotation;    }
 
     public Integer getDurationMinutes() {     return durationMinutes;
     }

@@ -1,6 +1,7 @@
 package com.cooperativeX.votation.restvote.service;
 
 import com.cooperativeX.votation.restvote.Exception.NotExistDaoException;
+import com.cooperativeX.votation.restvote.Exception.SessionAlredyOpenedException;
 import com.cooperativeX.votation.restvote.dao.AgendaDao;
 import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
@@ -10,6 +11,14 @@ import com.cooperativeX.votation.restvote.domain.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -37,30 +46,40 @@ public class VotationServiceImpl
         agendaDao.save(pauta);
     }
 
-
     public void openCreate(Session session) {
-        this.session = verifySessionDuration(session);
+        session = verifySessionDuration(session);
         sessionDao.save(session);
     }
 
     public void openSession(Session session) {
+        this.session = session;
         Agenda agenda = getAgenda(session.getAgendaId());
+        setSessionPeriod(session);
         agenda.setSession(session);
+        verifySessionStatus(session);
         agendaDao.save(agenda);
      }
 
+    public void verifySessionStatus(Session session) {
+        if( session.getSessionStatus().equals("NEW")){
+            session.setSessionStatus("OPEN");
+
+        }else{
+            throw new SessionAlredyOpenedException("Error Sesion ");
+        }
+    }
+
+    public void setSessionPeriod(Session session) {
+        this.session.setStartVotation(Instant.now().getEpochSecond());
+        this.session.setEndVotation(Instant.now().getEpochSecond() + session.getDurationMinutes() * 60);
+    }
+
     public Session verifySessionDuration(Session session) {
         if( session.getDurationMinutes() == null){
-            this.session.setDurationMinutes(60);
+            session.setDurationMinutes(60);
         }
-        return this.session;
+        return session;
     }
-
-    public Session verifySessionStatus(Session session) {
-
-        return this.session;
-    }
-
 
     public void verify(Session session) {
         sessionDao.save(session);
