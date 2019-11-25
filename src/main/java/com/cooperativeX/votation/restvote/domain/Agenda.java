@@ -23,8 +23,15 @@ public class Agenda extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Result result;
 
-    public List getSession() {
-        return session;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Session sessionOne;
+
+    public Session getSessionOne() {
+        return sessionOne;
+    }
+
+    public void setSessionOne(Session sessionOne) {
+        this.sessionOne = sessionOne;
     }
 
     public Result getResult() {
