@@ -47,16 +47,20 @@ public class VotationServiceImpl
     }
 
     public void openCreate(Session session) {
+        Agenda agenda = getAgenda(session.getAgendaId());
         session = verifySessionDuration(session);
+        validateSessionPresence(session.getAgendaId());
+        agenda.setSession(session);
         sessionDao.save(session);
+        agendaDao.save(agenda);
+
     }
 
     public void openSession(Session session) {
-        this.session = session;
         Agenda agenda = getAgenda(session.getAgendaId());
+        verifySessionStatus(session);
         setSessionPeriod(session);
         agenda.setSession(session);
-        verifySessionStatus(session);
         agendaDao.save(agenda);
      }
 
@@ -89,17 +93,24 @@ public class VotationServiceImpl
     }
 
 
-    public Agenda getAgenda(Long topicId) {
-        Optional<Agenda> agendaOptional = agendaDao.findById(topicId);
-       validateTopicPresence(agendaOptional);
+    public Agenda getAgenda(Long agendaId) {
+        Optional<Agenda> agendaOptional = agendaDao.findById(agendaId);
+       validateAgendaPresence(agendaOptional);
         return agendaOptional.get();
     }
 
-    private void validateTopicPresence(Optional<Agenda> agendaOptional) {
-        if (!agendaOptional.isPresent()) {
+    private void validateAgendaPresence(Optional<Agenda> ObjectOptional) {
+        if (!ObjectOptional.isPresent()) {
             throw new NotExistDaoException("Error agenda not found");
         }
     }
 
+
+
+    private void validateSessionPresence(long agendaId) {
+        Agenda agenda =  getAgenda(agendaId);
+        if(agenda.getSession() !=null)
+        throw new NotExistDaoException("Error Session alredy exist");
+    }
 
 }

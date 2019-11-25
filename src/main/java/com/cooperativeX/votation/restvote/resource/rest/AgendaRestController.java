@@ -62,11 +62,10 @@ public class AgendaRestController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-
     @PostMapping("/openSession")
     public ResponseEntity<Void> openSession(@RequestBody Session session ) {
         logger.trace(" @PostMapping - openSession");
-       votationService.openCreate(session);
+        votationService.openCreate(session);
         votationService.openSession(session);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -75,6 +74,20 @@ public class AgendaRestController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+
+    @PostMapping("/createSession")
+    public ResponseEntity<Void> createSession(@RequestBody Session session ) {
+        logger.trace(" @PostMapping - openSession");
+       votationService.openCreate(session);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(session.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+
 
     @GetMapping("/List")
     @ResponseStatus(HttpStatus.OK)
