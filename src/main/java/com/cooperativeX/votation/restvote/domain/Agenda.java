@@ -12,9 +12,9 @@ public class Agenda extends AbstractEntity {
     @Column(nullable = false)
     private String subject;
 
-    @Column(nullable = true)
-    @OneToMany( cascade = ALL, targetEntity = Session.class)
-    private List session;
+//    @Column(nullable = true)
+//    @OneToMany( cascade = ALL, targetEntity = Session.class)
+//    private List session;
 
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Vote.class)
@@ -23,32 +23,28 @@ public class Agenda extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Result result;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Session sessionOne;
+    @OneToOne
+    private Session session;
 
-    public Session getSessionOne() {
-        return sessionOne;
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 
-    public void setSessionOne(Session sessionOne) {
-        this.sessionOne = sessionOne;
+    public Session getSession() {        return session;    }
+
+    public void setResult(Result result) {
+        this.result = result;
     }
 
     public Result getResult() {
         return result;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
-    }
-
-    public void setsession(Session session) {
-        this.session.add(session);
-    }
-
     public List getVote() {
         return vote;
     }
+
     public void setVote(Vote vote) {
         this.vote.add(vote);
     }

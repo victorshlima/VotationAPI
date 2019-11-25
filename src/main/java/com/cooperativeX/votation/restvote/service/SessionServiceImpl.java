@@ -51,7 +51,7 @@ public class SessionServiceImpl
 
     public void openSession(Session session) {
         Agenda pauta = getAgenda(session.getAgendaId());
-        pauta.setsession(session);
+        pauta.setSession(session);
         agendaDao.save(pauta);
      }
 
@@ -68,9 +68,9 @@ public class SessionServiceImpl
 
     public void verify(Session session) {
         sessionDao.save(session);
-        Agenda pauta = getAgenda(session.getAgendaId());
-        pauta.setsession(session);
-        agendaDao.save(pauta);
+        Agenda agenda = getAgenda(session.getAgendaId());
+        agenda.setSession(session);
+        agendaDao.save(agenda);
     }
 
 
