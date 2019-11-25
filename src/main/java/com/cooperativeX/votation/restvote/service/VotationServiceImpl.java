@@ -19,15 +19,29 @@ public class VotationServiceImpl
     PautaDao pautaDao;
 
     @Autowired
-VoteDao voteDao;
+    VoteDao voteDao;
 
     @Autowired
     SessionDao sessionDao;
+
 
     public void PautaCreate(Pauta pauta) {
         pautaDao.save(pauta);
      }
 
+    public void addVote(Vote vote) {
+        voteDao.save(vote);
+
+        System.out.println(vote.getThemeId());
+
+        Pauta pauta = obtainTopic(vote.getThemeId());
+
+        pauta.setVote(vote);
+        System.out.println( pauta.getVote().get(0));
+
+
+        pautaDao.save(pauta);
+    }
 
     public void openSession(Session session) {
         Pauta topic = obtainTopic(session.getThemeId());
@@ -49,20 +63,16 @@ VoteDao voteDao;
     }
 
     public Pauta obtainTopic(Long topicId) {
-        Optional<Pauta> topicOptional = pautaDao.findById(topicId);
-       validateTopicPresence(topicOptional);
-        return topicOptional.get();
+        Optional<Pauta> pautaOptional = pautaDao.findById(topicId);
+       validateTopicPresence(pautaOptional);
+        return pautaOptional.get();
     }
 
-    private void validateTopicPresence(Optional<Pauta> topicOptional) {
-        if (!topicOptional.isPresent()) {
-            throw new NotExistDaoException("Erro ao Inciar Sessao");
+    private void validateTopicPresence(Optional<Pauta> pautaOptional) {
+        if (!pautaOptional.isPresent()) {
+            throw new NotExistDaoException("Error pauta not found");
         }
     }
-
-
-
-
 
 
 }

@@ -8,11 +8,10 @@ import javax.persistence.Entity;
 //import org.hibernate.annotations.Entity;
 
 @Entity
-//@ManagedResource
 public class Vote extends AbstractEntity {
 
     @Column(nullable = true)
-    private int themeId;
+    private long themeId;
 
     @Column(nullable = true)
     private int associateId;
@@ -20,11 +19,9 @@ public class Vote extends AbstractEntity {
     @Column(nullable = true)
     private String voteOption;
 
-    public int getThemeId() {
-        return themeId;
-    }
+    public long getThemeId() {        return themeId;    }
 
-    public void setThemeId(int themeId) {
+    public void setThemeId(long themeId) {
         this.themeId = themeId;
     }
 

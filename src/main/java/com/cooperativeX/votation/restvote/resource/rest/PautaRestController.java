@@ -1,8 +1,11 @@
 package com.cooperativeX.votation.restvote.resource.rest;
 
 import com.cooperativeX.votation.restvote.dao.PautaDao;
+import com.cooperativeX.votation.restvote.dao.SessionDao;
+import com.cooperativeX.votation.restvote.dao.VoteDao;
 import com.cooperativeX.votation.restvote.domain.Pauta;
 import com.cooperativeX.votation.restvote.domain.Session;
+import com.cooperativeX.votation.restvote.domain.Vote;
 import com.cooperativeX.votation.restvote.service.VotationServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,10 +30,16 @@ public class PautaRestController {
 
     private final PautaDao pautaDao;
 
+    private final SessionDao sessionDao;
+
+    private final VoteDao voteDao;
+
      @Autowired
-    public PautaRestController(PautaDao pautaDao)
+    public PautaRestController(PautaDao pautaDao,VoteDao voteDao, SessionDao sessionDao)
     {
-        this.pautaDao = pautaDao;
+        this.pautaDao =  pautaDao;
+        this.sessionDao =  sessionDao;
+        this.voteDao =  voteDao;
     }
 
     @PostMapping("/AddPauta")
@@ -46,26 +55,45 @@ public class PautaRestController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("/InitVotation")
-    public ResponseEntity<Void> save(@RequestBody Session session) {
+//    @PostMapping("/InitVotation")
+//    public ResponseEntity<Void> save(@RequestBody Session session) {
+//        logger.trace(" @PostMapping - save");
+//
+//        votationService.openSession(session);
+//
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(session.getId())
+//                .toUri();
+//        return ResponseEntity.created(location).build();
+//    }
+
+    @PostMapping("/sendvote")
+    public ResponseEntity<Void> save(@RequestBody Vote vote) {
         logger.trace(" @PostMapping - save");
 
-        votationService.openSession(session);
+        votationService.addVote(vote);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(session.getId())
+                .buildAndExpand(vote.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
 
 
-
     @GetMapping("/List")
     @ResponseStatus(HttpStatus.OK)
-    public List<Pauta> listar() {
+    public List<Pauta> listarPautas() {
         return pautaDao.findAll();
+    }
+
+    @GetMapping("/getvotes")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Vote> listarVotes() {
+        return voteDao.findAll();
     }
 
 }

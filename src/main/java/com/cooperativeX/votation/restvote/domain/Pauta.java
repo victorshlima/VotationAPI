@@ -35,6 +35,8 @@ public class Pauta extends AbstractEntity {
     public void setVote(Vote vote) {
         this.vote.add(vote);
     }
+
+
 //    public void setSession(List session) {
 //        Session = session;
 //    }
