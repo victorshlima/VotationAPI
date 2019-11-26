@@ -3,6 +3,7 @@ package com.cooperativeX.votation.restvote.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
@@ -16,7 +17,7 @@ public class Agenda extends AbstractEntity {
 
     @Column(nullable = true)
     @OneToMany(fetch = FetchType.LAZY,targetEntity = Vote.class)
-    private List vote;
+    private List vote ;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Result result;
@@ -58,7 +59,6 @@ public class Agenda extends AbstractEntity {
     }
 
     public Agenda(String subject, Vote vote) {
-
         this.subject = subject;
         this.vote = (List) vote;
     }

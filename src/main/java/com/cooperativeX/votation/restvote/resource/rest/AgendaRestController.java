@@ -45,7 +45,7 @@ public class AgendaRestController {
     @PostMapping("/create")
     public ResponseEntity<Void> AddPauta(@RequestBody Agenda pauta) {
         logger.trace(" @PostMapping - AddPauta");
-        votationService.PautaCreate(pauta);
+        votationService.AgendaCreate(pauta);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -68,7 +68,6 @@ public class AgendaRestController {
     @PostMapping("/openSession")
     public ResponseEntity<Void> openSession(@RequestBody Session session ) {
         logger.trace(" @PostMapping - openSession");
-        votationService.openCreate(session);
         votationService.openSession(session);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -81,7 +80,7 @@ public class AgendaRestController {
     @PostMapping("/createSession")
     public ResponseEntity<Void> createSession(@RequestBody Session session ) {
         logger.trace(" @PostMapping - openSession");
-       votationService.openCreate(session);
+       votationService.CreateSession(session);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
