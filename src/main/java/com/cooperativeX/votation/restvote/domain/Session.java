@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 @Entity
 public class Session extends AbstractEntity {
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private long agendaId;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String sessionStatus;
 
     @Column(nullable = true)
@@ -18,7 +18,7 @@ public class Session extends AbstractEntity {
     @Column(nullable = true)
     private long endVotation;
 
-    @Column(nullable = true)
+    @Column()
     private Integer durationMinutes;
 
     public String getSessionStatus() {

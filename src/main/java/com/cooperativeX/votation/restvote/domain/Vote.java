@@ -1,20 +1,22 @@
 package com.cooperativeX.votation.restvote.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import org.hibernate.validator.constraints.NotEmpty;
 
-//import org.hibernate.annotations.Entity;
+import javax.persistence.*;
 
 @Entity
 public class Vote extends AbstractEntity {
 
-    @Column(nullable = true)
+    public static final String ITEM_YES = "YES";
+    public static final String ITEM_NO = "NO";
+
+    @Column(nullable = false)
     private long agendaId;
 
-    @Column(nullable = true)
+    @Column(unique=true, updatable=false)
     private int associateId;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String voteOption;
 
     public long getAgendaId() {        return agendaId;    }
