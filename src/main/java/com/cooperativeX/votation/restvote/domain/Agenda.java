@@ -1,23 +1,21 @@
 package com.cooperativeX.votation.restvote.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
-
+@JsonAutoDetect
 @Entity
 public class Agenda extends AbstractEntity {
 
     @Column(nullable = false)
     private String subject;
 
-//    @Column(nullable = true)
-//    @OneToMany( cascade = ALL, targetEntity = Session.class)
-//    private List session;
-
     @Column(nullable = true)
-    @OneToMany(fetch = FetchType.EAGER, cascade = ALL, targetEntity = Vote.class)
+    @OneToMany(fetch = FetchType.LAZY,targetEntity = Vote.class)
     private List vote;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -25,7 +23,6 @@ public class Agenda extends AbstractEntity {
 
     @OneToOne
     private Session session;
-
 
     public void setSession(Session session) {
         this.session = session;
@@ -57,4 +54,28 @@ public class Agenda extends AbstractEntity {
         this.subject = subject;
     }
 
+    public Agenda() {
+    }
+
+    public Agenda(String subject, Vote vote) {
+
+        this.subject = subject;
+        this.vote = (List) vote;
+    }
+
+    public Agenda(String subject) {
+
+        this.subject = subject;
+        this.vote = (List) vote;
+    }
+
+    @Override
+    public String toString() {
+        return "Agenda{" +
+                "subject='" + subject + '\'' +
+                ", vote=" + vote +
+                ", result=" + result +
+                ", session=" + session +
+                '}';
+    }
 }

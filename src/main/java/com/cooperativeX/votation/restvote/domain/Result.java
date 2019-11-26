@@ -28,4 +28,12 @@ public class Result extends AbstractEntity {
     public void setWinnerVote(String winnerVote) {
         this.winnerVote = winnerVote;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Result{" +
+//                "votesTotal=" + votesTotal +
+//                ", winnerVote='" + winnerVote + '\'' +
+//                '}';
+//    }
 }

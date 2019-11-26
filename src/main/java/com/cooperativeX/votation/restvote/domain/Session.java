@@ -47,4 +47,21 @@ public class Session extends AbstractEntity {
     public void setDurationMinutes(Integer durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
+
+//    public Session(long agendaId, String sessionStatus, Integer durationMinutes) {
+//        this.agendaId = agendaId;
+//        this.sessionStatus = sessionStatus;
+//        this.durationMinutes = durationMinutes;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "Session{" +
+//                "agendaId=" + agendaId +
+//                ", sessionStatus='" + sessionStatus + '\'' +
+//                ", startVotation=" + startVotation +
+//                ", endVotation=" + endVotation +
+//                ", durationMinutes=" + durationMinutes +
+//                '}';
+//    }
 }

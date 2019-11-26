@@ -25,4 +25,12 @@ public class User extends AbstractEntity {
     public void setVote(Vote vote) {
         this.vote = vote;
     }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "associateId=" + associateId +
+//                ", vote=" + vote +
+//                '}';
+//    }
 }

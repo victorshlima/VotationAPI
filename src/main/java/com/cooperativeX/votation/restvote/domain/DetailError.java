@@ -88,4 +88,17 @@ public class DetailError implements Serializable {
             return this.erro;
         }
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "DetailError{" +
+//                "statusCode=" + statusCode +
+//                ", statusMessage='" + statusMessage + '\'' +
+//                ", httpMethod='" + httpMethod + '\'' +
+//                ", erro='" + erro + '\'' +
+//                ", detail='" + detail + '\'' +
+//                ", path='" + path + '\'' +
+//                '}';
+//    }
 }

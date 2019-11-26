@@ -38,4 +38,23 @@ public class Vote extends AbstractEntity {
     public void setVoteOption(String voteOption) {
         this.voteOption = voteOption;
     }
+
+    public Vote() {
+
+    }
+
+    public Vote(long agendaId, int associateId, String voteOption) {
+        this.agendaId = agendaId;
+        this.associateId = associateId;
+        this.voteOption = voteOption;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "agendaId=" + agendaId +
+                ", associateId=" + associateId +
+                ", voteOption='" + voteOption + '\'' +
+                '}';
+    }
 }

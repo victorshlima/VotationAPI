@@ -35,5 +35,6 @@ private Long id;
         return Objects.hash(id);
     }
 
-
+    public AbstractEntity() {
+    }
 }

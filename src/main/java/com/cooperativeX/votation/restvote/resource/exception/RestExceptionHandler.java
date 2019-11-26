@@ -17,13 +17,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  @ControllerAdvice
  public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  //   static final Logger logger = LogManager.getLogger(LancamentoServiceImpl.class.getName());
-
      @ExceptionHandler({
              NullPointerException.class,
              IllegalArgumentException.class,
              javax.persistence.NoResultException.class
      })
+
      public ResponseEntity<Object> serverException(RuntimeException ex, WebRequest request) {
          logger.error(ex.getMessage());
          return handleExceptionInternal(
