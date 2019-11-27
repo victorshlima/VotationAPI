@@ -4,8 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-//import org.hibernate.annotations.Entity;
-
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
 

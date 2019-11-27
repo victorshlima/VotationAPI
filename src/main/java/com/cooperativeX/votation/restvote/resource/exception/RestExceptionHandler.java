@@ -1,7 +1,5 @@
  package com.cooperativeX.votation.restvote.resource.exception;
 
-
-
 import com.cooperativeX.votation.restvote.Exception.NotExistDaoException;
 import com.cooperativeX.votation.restvote.domain.DetailError;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +37,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
      @ExceptionHandler({
              org.hibernate.exception.ConstraintViolationException.class
      })
-     public ResponseEntity<Object> constraintViolada(org.hibernate.exception.ConstraintViolationException ex,
+     public ResponseEntity<Object> constraintViolated(org.hibernate.exception.ConstraintViolationException ex,
                                                      WebRequest request) {
          logger.error(ex.getMessage());
          return handleExceptionInternal(

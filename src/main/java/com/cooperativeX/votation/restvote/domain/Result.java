@@ -7,13 +7,44 @@ import javax.persistence.Entity;
 @Entity
 public class Result extends AbstractEntity {
 
-    @Column(nullable = true)
-    private int votesTotal;
 
     @Column(nullable = true)
-    private String winnerVote;
+    private long votesTotalYes;
 
-    public int getVotesTotal() {
+    @Column(nullable = true)
+    private long votesTotalNo;
+
+    @Column(nullable = true)
+    private long votesTotal;
+
+    @Column(nullable = true)
+    private String WinnerChoice;
+
+    public String getWinnerChoice() {
+        return WinnerChoice;
+    }
+
+    public void setWinnerChoice(String winnerChoice) {
+        WinnerChoice = winnerChoice;
+    }
+
+    public long getVotesTotalYes() {
+        return votesTotalYes;
+    }
+
+    public void setVotesTotalYes(long votesTotalYes) {
+        this.votesTotalYes = votesTotalYes;
+    }
+
+    public long getVotesTotalNo() {
+        return votesTotalNo;
+    }
+
+    public void setVotesTotalNo(long votesTotalNo) {
+        this.votesTotalNo = votesTotalNo;
+    }
+
+    public long getVotesTotal() {
         return votesTotal;
     }
 
@@ -21,19 +52,13 @@ public class Result extends AbstractEntity {
         this.votesTotal = votesTotal;
     }
 
-    public String getWinnerVote() {
-        return winnerVote;
+    @Override
+    public String toString() {
+        return "Result{" +
+                "votesTotalYes=" + votesTotalYes +
+                ", votesTotalNo=" + votesTotalNo +
+                ", votesTotal=" + votesTotal +
+                ", WinnerChoice='" + WinnerChoice + '\'' +
+                '}';
     }
-
-    public void setWinnerVote(String winnerVote) {
-        this.winnerVote = winnerVote;
-    }
-
-//    @Override
-//    public String toString() {
-//        return "Result{" +
-//                "votesTotal=" + votesTotal +
-//                ", winnerVote='" + winnerVote + '\'' +
-//                '}';
-//    }
 }

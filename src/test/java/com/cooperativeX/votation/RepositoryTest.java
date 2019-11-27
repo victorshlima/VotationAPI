@@ -12,15 +12,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -28,11 +24,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.util.List;
-
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
@@ -59,9 +50,7 @@ public class RepositoryTest {
     Agenda agenda;
     @Autowired
     private TestRestTemplate restTemplate;
-
     private HttpEntity<Void> Headers;
-
 
     @TestConfiguration
     static class Config {
@@ -73,6 +62,8 @@ public class RepositoryTest {
         public RestTemplateBuilder restTemplateBuilder() {
             return new RestTemplateBuilder();
         }
+
+
     }
 
     @Before
@@ -113,7 +104,6 @@ public class RepositoryTest {
                 POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
-
     @Test
     public void getAgendaListShouldReturnStatusCode201() {
         System.out.println(restTemplate.getRootUri());
@@ -122,9 +112,6 @@ public class RepositoryTest {
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri() + "/agenda/List",GET,Headers, String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(200);
     }
-
-
-
     @Test
     public void getVotesListShouldReturnStatusCode201() {
         System.out.println(restTemplate.getRootUri());
@@ -140,11 +127,5 @@ public class RepositoryTest {
                 "/agenda/getsessions", GET,Headers, String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(200);
     }
-
-
-
-
-
-
 
 }

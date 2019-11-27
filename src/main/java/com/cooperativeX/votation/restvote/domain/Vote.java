@@ -1,14 +1,8 @@
 package com.cooperativeX.votation.restvote.domain;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 
 @Entity
 public class Vote extends AbstractEntity {
-
-    public static final String ITEM_YES = "YES";
-    public static final String ITEM_NO = "NO";
 
     @Column(nullable = false)
     private long agendaId;
@@ -43,12 +37,6 @@ public class Vote extends AbstractEntity {
 
     public Vote() {
 
-    }
-
-    public Vote(long agendaId, int associateId, String voteOption) {
-        this.agendaId = agendaId;
-        this.associateId = associateId;
-        this.voteOption = voteOption;
     }
 
     @Override

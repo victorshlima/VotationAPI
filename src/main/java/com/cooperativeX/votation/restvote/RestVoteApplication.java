@@ -17,8 +17,4 @@ public class RestVoteApplication {
 		SpringApplication.run(RestVoteApplication.class, args);
 	}
 
-
-
-
-
 }
