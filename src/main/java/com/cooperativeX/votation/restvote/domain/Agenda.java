@@ -1,11 +1,13 @@
 package com.cooperativeX.votation.restvote.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
 
-@JsonAutoDetect
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Agenda extends AbstractEntity {
 
@@ -16,7 +18,7 @@ public class Agenda extends AbstractEntity {
     @OneToMany( fetch = FetchType.LAZY,targetEntity = Vote.class)
     private List<Vote> vote;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne( fetch = FetchType.LAZY,targetEntity = Result.class)
     private Result result;
 
     @OneToOne

@@ -1,9 +1,13 @@
 package com.cooperativeX.votation.restvote.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonAutoDetect
 @Entity
 public class Result extends AbstractEntity {
 
@@ -19,10 +23,6 @@ public class Result extends AbstractEntity {
 
     @Column(nullable = true)
     private String WinnerChoice;
-
-    public String getWinnerChoice() {
-        return WinnerChoice;
-    }
 
     public void setWinnerChoice(String winnerChoice) {
         WinnerChoice = winnerChoice;

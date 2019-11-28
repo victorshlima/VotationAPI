@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface VoteDao extends CrudRepository<Vote, Long> {
+
     List<Vote> findAll();
+
     Vote save(Vote vote);
 
     long countAllByAgendaIdAndVoteOptionEquals(long AgendaId, String voteOption);
-    long countAllByAgendaId(long AgendaId);
-
 }
