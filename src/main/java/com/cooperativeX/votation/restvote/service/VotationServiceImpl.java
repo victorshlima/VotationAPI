@@ -31,12 +31,12 @@ public class VotationServiceImpl
    private Session session;
    private Agenda agenda;
 
-    public void AgendaCreate(Agenda pauta) {
+    public void CreateAgenda(Agenda pauta) {
        agendaDao.save(pauta);
     }
 
 
-    public void addVote(Vote vote) {
+    public void AddVote(Vote vote) {
         Agenda agenda = getAgenda(vote.getAgendaId());
         verifySessionOpened( agenda.getSession().getStartVotation(), agenda.getSession().getEndVotation());
         agenda.setVote(vote);
@@ -54,7 +54,7 @@ public class VotationServiceImpl
 
     }
 
-    public void openSession(Session session, long id) {
+    public void OpenSession(Session session, long id) {
         Agenda agenda = getAgenda(id);
         session = verifySessionDuration(session);
         setSessionPeriodAndStatus(session);

@@ -40,7 +40,7 @@ public class AgendaRestController {
     @PostMapping("/agendas")
     public ResponseEntity<Void> AddAgenda(@RequestBody Agenda agenda) {
         logger.trace(" @PostMapping - AgendaCreate");
-        votationService.AgendaCreate(agenda);
+        votationService.CreateAgenda(agenda);
     return ResponseEntity.created(genericURIPostPutLocation(agenda)).build();
     }
 
@@ -54,14 +54,14 @@ public class AgendaRestController {
     @PatchMapping("/sessions")
     public ResponseEntity<Void> openSession(@RequestBody Session session,  @PathVariable("id") long id ) {
         logger.trace(" @PostMapping - openSession");
-        votationService.openSession(session, id);
+        votationService.OpenSession(session, id);
         return ResponseEntity.created(genericURIPostPutLocation(session)).build();
     }
 
     @PostMapping("/votations")
     public ResponseEntity<Void> sendvote(@RequestBody Vote vote ) {
-        logger.trace(" @PostMapping - sendvote");
-        votationService.addVote(vote);
+        logger.trace(" @PostMapping - addVote");
+        votationService.AddVote(vote);
         return ResponseEntity.created(genericURIPostPutLocation(vote)).build();
     }
 
