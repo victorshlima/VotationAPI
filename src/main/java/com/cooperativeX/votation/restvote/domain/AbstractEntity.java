@@ -9,7 +9,6 @@ import java.util.Objects;
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
 
-
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

@@ -5,6 +5,7 @@ import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
 import com.cooperativeX.votation.restvote.domain.*;
 import com.cooperativeX.votation.restvote.service.VotationService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping( produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(  produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+                              consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 
 public class AgendaRestController {
 
@@ -38,7 +40,7 @@ public class AgendaRestController {
         this.voteDao =  voteDao;
     }
 
-    @PostMapping("/agendas")
+   @PostMapping("/agendas")
     public ResponseEntity<Void> AddAgenda(@RequestBody Agenda agenda) {
         votationService.CreateAgenda(agenda);
     return ResponseEntity.created(genericURIPostPutLocation(agenda)).build();
@@ -49,6 +51,7 @@ public class AgendaRestController {
         votationService.CreateSession(session);
         return ResponseEntity.created(genericURIPostPutLocation(session)).build();
     }
+
 
     @PatchMapping("/sessions")
     public ResponseEntity<Void> openSession(@RequestBody Session session ) {

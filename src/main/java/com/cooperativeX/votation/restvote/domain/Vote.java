@@ -17,6 +17,7 @@ public class Vote extends AbstractEntity {
     @Column(unique=true, updatable=false)
     private int associateId;
 
+    @JsonIgnoreProperties(value = {"parentActivity"})
     @Column(nullable = false)
     private String voteOption;
 

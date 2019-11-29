@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "parentActivity"})
 @Entity
 public class Session extends AbstractEntity {
 
@@ -14,10 +16,10 @@ public class Session extends AbstractEntity {
     @Column(nullable = false)
     private String sessionStatus;
 
-    @Column(nullable = true)
+    @Column()
     private long startVotation;
 
-    @Column(nullable = true)
+    @Column()
     private long endVotation;
 
     @Column()
