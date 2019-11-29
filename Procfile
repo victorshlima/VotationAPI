@@ -1,1 +1,1 @@
-java $JAVA_OPTS -jar target/votation-api-0.0.1-SNAPSHOT.jar --server.port=$PORT $JAR_OPTS
+web: java $JAVA_OPTS -jar target/votation-api-0.0.1-SNAPSHOT.jar --port $PORT target/*.war
