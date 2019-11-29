@@ -1,6 +1,7 @@
 package com.cooperativeX.votation.restvote.dao;
 
         import com.cooperativeX.votation.restvote.domain.Agenda;
+        import org.springframework.data.jpa.repository.JpaRepository;
         import org.springframework.data.repository.CrudRepository;
         import org.springframework.stereotype.Repository;
 
@@ -8,6 +9,6 @@ package com.cooperativeX.votation.restvote.dao;
 
 
 @Repository
-public interface AgendaDao extends CrudRepository<Agenda, Long> {
+public interface AgendaDao extends JpaRepository<Agenda, Long> {
     List<Agenda> findAll();
 }
