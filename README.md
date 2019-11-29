@@ -29,34 +29,20 @@ mvn clean install
 https://votation-api.herokuapp.com/v1/swagger-ui.html
 
 
-
 #https://votation-api.herokuapp.com/v1
 
 #Endpoints
-POST
+
+
+https://votation-api.herokuapp.com/v1
+
+POST /agendas
+GET /agendas/{id}
+GET /agendas
 /agendas
-{"subject": "1"}
-
-POST
 /sessions
-{"agendaId": 1,"sessionStatus": "NEW", "durationMinutes": 2}
-
-POST
-/sessions
-{    "agendaId": 1,    "sessionStatus": "NEW",    "durationMinutes": 60}
-
-AgendaId - inform the Agenda to Open Session.
-sessionStatus
-
-POST
 /votations
-{    "agendaId": 1,    "associateId": 122,    "voteOption": "YES"}
-
-
-
-
-
-
+/results/{id}
 
 ## Roadmap
 
