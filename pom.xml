@@ -85,7 +85,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.cooperativeX.votation.restvote</mainClass>
+							<mainClass>com.cooperativeX.votation.restvote.RestVoteApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
