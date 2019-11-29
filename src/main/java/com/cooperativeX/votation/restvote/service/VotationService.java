@@ -9,7 +9,6 @@ import com.cooperativeX.votation.restvote.domain.Agenda;
 import com.cooperativeX.votation.restvote.domain.Result;
 import com.cooperativeX.votation.restvote.domain.Session;
 import com.cooperativeX.votation.restvote.domain.Vote;
-import com.cooperativeX.votation.restvote.resource.rest.AgendaRestController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.time.Instant;
 import java.util.Optional;
 
 @Service
-public class VotationServiceImpl
+public class VotationService
 {
     @Autowired
     AgendaDao agendaDao;
@@ -29,10 +28,9 @@ public class VotationServiceImpl
     @Autowired
     ResultDao resultDao;
 
-   private Session session;
-   private Agenda agenda;
-    static final Logger logger = LogManager.getLogger(VotationServiceImpl.class.getName());
+    private  Result result;
 
+    static final Logger logger = LogManager.getLogger(VotationService.class.getName());
     public void CreateAgenda(Agenda pauta) {
        agendaDao.save(pauta);
     }
@@ -54,26 +52,6 @@ public class VotationServiceImpl
         agendaDao.save(agenda);
 
     }
-    public void OpenSession(Session session) {
-        logger.debug( "xxxxxxxxxxxxxx");
-        System.out.println( "xxxxxxxxxxxxxx");
-        Agenda agenda = getAgenda(session.getAgendaId());
-        session = verifySessionDuration(session);
-        setSessionPeriodAndStatus(session);
-        agenda.setSession(session);
-        sessionDao.save(session);
-        agendaDao.save(agenda);
-    }
-//    public void OpenSession(Session session, long id) {
-//        logger.debug(id + "xxxxxxxxxxxxxx");
-//        System.out.println(id + "xxxxxxxxxxxxxx");
-//        Agenda agenda = getAgenda(id);
-//        session = verifySessionDuration(session);
-//        setSessionPeriodAndStatus(session);
-//        agenda.setSession(session);
-//        sessionDao.save(session);
-//        agendaDao.save(agenda);
-//     }
 
     public Session setSessionPeriodAndStatus(Session session) {
         session.setStartVotation(Instant.now().getEpochSecond());
@@ -89,6 +67,14 @@ public class VotationServiceImpl
         return session;
     }
 
+    public void OpenSession(Session session) {
+        Agenda agenda = getAgenda(session.getAgendaId());
+        session = verifySessionDuration(session);
+        setSessionPeriodAndStatus(session);
+        agenda.setSession(session);
+        sessionDao.save(session);
+        agendaDao.save(agenda);
+    }
     public Agenda getAgenda(Long agendaId) {
         Optional<Agenda> agendaOptional = agendaDao.findById(agendaId);
        validateAgendaPresence(agendaOptional);
@@ -107,35 +93,24 @@ public class VotationServiceImpl
         throw new NotExistDaoException("Error Session alredy exist");
     }
 
-    public Session verifySessionOpened(Long startSession, Long endSession ) {
+    public void 
+    verifySessionOpened(Long startSession, Long endSession ) {
         if(Instant.now().getEpochSecond() <= startSession )  {
             throw new SessionTimeException("Votation not opened yet");
         }
         if(Instant.now().getEpochSecond() >= endSession )  {
             throw new SessionTimeException("Votation Finished");
         }
-        return session;
-    }
-
-    public Session verifySessionStatus(Long startSession, Long endSession, Session session ) {
-        if(Instant.now().getEpochSecond() <= startSession )  {
-            throw new SessionTimeException("Votation not opened yet");
-        }else  if(Instant.now().getEpochSecond() <= endSession )  {
-            throw new SessionTimeException("Votation not closed yet");
-        }else  if(Instant.now().getEpochSecond() >= endSession )  {
-            session.setSessionStatus("CLOSE");
-        }
-        return session;
     }
 
     public Result endSession(long agendaId) {
         Agenda agenda =  getAgenda(agendaId);
-        Result result = new Result();
         result = CalculateResult(agendaId, result);
         agenda.setResult(result);
         resultDao.save(result);
         return result;
     }
+
     public Result CalculateResult (long agendaId, Result result) {
         result.setVotesTotalYes(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, "YES") );
         result.setVotesTotalNo(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, "NO") );
@@ -150,11 +125,5 @@ public class VotationServiceImpl
         }
         return result;
     }
-
-
-
-
-
-
 
 }

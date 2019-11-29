@@ -4,7 +4,7 @@ import com.cooperativeX.votation.restvote.dao.AgendaDao;
 import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
 import com.cooperativeX.votation.restvote.domain.*;
-import com.cooperativeX.votation.restvote.service.VotationServiceImpl;
+import com.cooperativeX.votation.restvote.service.VotationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping( produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -24,7 +25,7 @@ public class AgendaRestController {
 
     static final Logger logger = LogManager.getLogger(AgendaRestController.class.getName());
     @Autowired
-    private VotationServiceImpl votationService;
+    private VotationService votationService;
     private final AgendaDao agendaDao;
     private final SessionDao sessionDao;
     private final VoteDao voteDao;
@@ -77,6 +78,12 @@ public class AgendaRestController {
     @ResponseStatus(HttpStatus.OK)
     public List<Session> SessionsFindAll() {
         return sessionDao.findAll();
+    }
+
+    @GetMapping("/session")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Session> GetSessionById(@PathVariable("id") long id){
+        return  sessionDao.findById(id);
     }
 
     @GetMapping("/results")

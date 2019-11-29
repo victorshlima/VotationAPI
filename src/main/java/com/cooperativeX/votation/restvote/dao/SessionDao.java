@@ -10,8 +10,7 @@ import java.util.List;
 
 @Repository
 public interface SessionDao extends CrudRepository<Session, Long> {
-
     List<Session> findAll();
-
     Session save(Session session);
+    Session findAllByAgendaId(long id);
 }

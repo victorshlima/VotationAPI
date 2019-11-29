@@ -5,7 +5,7 @@ import com.cooperativeX.votation.restvote.dao.AgendaDao;
 import com.cooperativeX.votation.restvote.domain.Agenda;
 import com.cooperativeX.votation.restvote.domain.Vote;
 import com.cooperativeX.votation.restvote.resource.rest.AgendaRestController;
-import com.cooperativeX.votation.restvote.service.VotationServiceImpl;
+import com.cooperativeX.votation.restvote.service.VotationService;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,8 +30,8 @@ import static org.springframework.http.HttpMethod.POST;
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes= {AgendaDao.class, VotationServiceImpl.class,
-        VotationServiceImpl.class, AgendaRestController.class, Agenda.class, Vote.class })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes= {AgendaDao.class, VotationService.class,
+        VotationService.class, AgendaRestController.class, Agenda.class, Vote.class })
 
 public class RepositoryTest {
     @LocalServerPort
@@ -43,7 +43,7 @@ public class RepositoryTest {
     @Autowired
     private AgendaDao agendaDao;
     @Autowired
-    private VotationServiceImpl votationServiceImpl;
+    private VotationService votationServiceImpl;
     @Autowired
     private AgendaRestController agendaRestController;
     @Autowired
@@ -57,30 +57,24 @@ public class RepositoryTest {
         @Bean
         public void contextLoads() {
         }
-
         @Bean
         public RestTemplateBuilder restTemplateBuilder() {
             return new RestTemplateBuilder();
         }
-
-
     }
 
     @Before
     public void configHeaders() {
-
         agendaDao.deleteAll();
-        Agenda agenda = new Agenda("Atualizacao de equipamentos");
-        HttpHeaders headers = restTemplate.postForEntity("/agenda/create", agenda, String.class).getHeaders();
-     //   headers.setContentType(MediaType.APPLICATION_JSON);
+        Agenda agenda = new Agenda("Update Equipments");
+        HttpHeaders headers = restTemplate.postForEntity("/agendas", agenda, String.class).getHeaders();
         this.Headers = new HttpEntity<>(headers);
     }
-
 
     @Test
     public void postAgendaCreateShouldReturnStatusCode201() {
       String  agenda = "{\"subject\": \"Update Equipments\"}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/create",
+        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agendas",
       // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
         POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
          Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
@@ -88,19 +82,19 @@ public class RepositoryTest {
 
     @Test
     public void postSessionCreateShouldReturnStatusCode201() {
-        String  agenda = "{    \"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 1}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/Session",
+        String  session = "{\"agendaId\": 1,\"sessionStatus\": \"NEW\", \"durationMinutes\": 2}";
+        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
                 // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
-                POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
+                POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 
     @Test
     public void postOpenSessionCreateShouldReturnStatusCode201() {
-        String  agenda = "{\"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 1}";
+        String  session = "{\"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 1}";
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/openSession",
                 // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
-                POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
+                POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 
