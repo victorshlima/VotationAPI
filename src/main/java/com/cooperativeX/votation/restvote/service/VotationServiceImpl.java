@@ -24,7 +24,6 @@ public class VotationServiceImpl
     VoteDao voteDao;
     @Autowired
     SessionDao sessionDao;
-
     @Autowired
     ResultDao resultDao;
 
@@ -34,7 +33,6 @@ public class VotationServiceImpl
     public void CreateAgenda(Agenda pauta) {
        agendaDao.save(pauta);
     }
-
 
     public void AddVote(Vote vote) {
         Agenda agenda = getAgenda(vote.getAgendaId());
