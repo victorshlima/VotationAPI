@@ -18,7 +18,7 @@ public class Agenda extends AbstractEntity {
     @OneToOne( fetch = FetchType.LAZY,targetEntity = Result.class)
     private Result result;
 
-    @OneToOne
+    @OneToOne( fetch = FetchType.LAZY,targetEntity = Session.class)
     private Session session;
 
     public void setSession(Session session) {

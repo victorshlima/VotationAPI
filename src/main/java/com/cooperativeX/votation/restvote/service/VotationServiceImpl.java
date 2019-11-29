@@ -1,5 +1,4 @@
 package com.cooperativeX.votation.restvote.service;
-
 import com.cooperativeX.votation.restvote.Exception.NotExistDaoException;
 import com.cooperativeX.votation.restvote.Exception.SessionTimeException;
 import com.cooperativeX.votation.restvote.dao.AgendaDao;
@@ -55,8 +54,8 @@ public class VotationServiceImpl
 
     }
 
-    public void openSession(Session session) {
-        Agenda agenda = getAgenda(session.getAgendaId());
+    public void openSession(Session session, long id) {
+        Agenda agenda = getAgenda(id);
         session = verifySessionDuration(session);
         setSessionPeriodAndStatus(session);
         agenda.setSession(session);

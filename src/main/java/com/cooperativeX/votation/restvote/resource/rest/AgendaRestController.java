@@ -21,7 +21,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/agenda",
+@RequestMapping(
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 
@@ -45,9 +45,9 @@ public class AgendaRestController {
         this.voteDao =  voteDao;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/agendas")
     public ResponseEntity<Void> AddAgenda(@RequestBody Agenda agenda) {
-        logger.trace(" @PostMapping - AddAgenda");
+        logger.trace(" @PostMapping - AgendaCreate");
         votationService.AgendaCreate(agenda);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -57,7 +57,32 @@ public class AgendaRestController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("/sendvote")
+    @PostMapping("/sessions")
+    public ResponseEntity<Void> CreateSession(@RequestBody Session session) {
+        logger.trace(" @PostMapping - openSession");
+     //   System.out.println(Action);
+        votationService.CreateSession(session);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(session.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @PatchMapping("/sessions")
+    public ResponseEntity<Void> openSession(@RequestBody Session session,  @PathVariable("id") long id ) {
+        logger.trace(" @PostMapping - openSession");
+        votationService.openSession(session, id);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(session.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/votations")
     public ResponseEntity<Void> sendvote(@RequestBody Vote vote ) {
         logger.trace(" @PostMapping - sendvote");
         votationService.addVote(vote);
@@ -68,54 +93,31 @@ public class AgendaRestController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-    @PostMapping("/openSession")
-    public ResponseEntity<Void> openSession(@RequestBody Session session ) {
-        logger.trace(" @PostMapping - openSession");
-        votationService.openSession(session);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(session.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
-    }
 
-    @PostMapping("/Session")
-    public ResponseEntity<Void> CreateSession(@RequestBody Session session ) {
-        logger.trace(" @PostMapping - openSession");
-       votationService.CreateSession(session);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(session.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
-    }
-
-    @GetMapping("/List")
+    @GetMapping("/agendas")
     @ResponseStatus(HttpStatus.OK)
     public List<Agenda> AgendaFindAll() {
         return agendaDao.findAll();
     }
 
-    @GetMapping("/getvotes")
+    @GetMapping("/votations")
     @ResponseStatus(HttpStatus.OK)
     public List<Vote> VotesFindAll() {
         return voteDao.findAll();
     }
 
-    @GetMapping("/getsessions")
+    @GetMapping("/sessions")
     @ResponseStatus(HttpStatus.OK)
     public List<Session> SessionsFindAll() {
         return sessionDao.findAll();
     }
 
-    @GetMapping("/getResult")
+    @GetMapping("/results")
     @ResponseStatus(HttpStatus.OK)
-    public Result GetResultAndCloseSession(@RequestParam("AgendaID") long agendaID){
+    public Result GetResultAndCloseSession( @PathVariable("id") long id){
         logger.trace("@GetMapping - getResult");
-        System.out.println(agendaID);
-        return  votationService.endSession(agendaID);
+        System.out.println(id);
+        return  votationService.endSession(id);
     }
 
 }

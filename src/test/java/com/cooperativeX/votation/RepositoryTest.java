@@ -68,6 +68,8 @@ public class RepositoryTest {
 
     @Before
     public void configHeaders() {
+
+        agendaDao.deleteAll();
         Agenda agenda = new Agenda("Atualizacao de equipamentos");
         HttpHeaders headers = restTemplate.postForEntity("/agenda/create", agenda, String.class).getHeaders();
      //   headers.setContentType(MediaType.APPLICATION_JSON);
@@ -77,8 +79,7 @@ public class RepositoryTest {
 
     @Test
     public void postAgendaCreateShouldReturnStatusCode201() {
-     //Agenda agenda = new Agenda("Atualizacao de equipamentos");
-      String  agenda = "{\"subject\": \"Atualizacao de equipamentos\"}";
+      String  agenda = "{\"subject\": \"Update Equipments\"}";
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/create",
       // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
         POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
@@ -87,9 +88,17 @@ public class RepositoryTest {
 
     @Test
     public void postSessionCreateShouldReturnStatusCode201() {
-        //Agenda agenda = new Agenda("Atualizacao de equipamentos");
-        String  agenda = "{    \"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 90}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/createSession",
+        String  agenda = "{    \"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 1}";
+        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/Session",
+                // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
+                POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
+        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
+    }
+
+    @Test
+    public void postOpenSessionCreateShouldReturnStatusCode201() {
+        String  agenda = "{\"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 1}";
+        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/openSession",
                 // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
                 POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
@@ -97,15 +106,14 @@ public class RepositoryTest {
 
     @Test
     public void postVoteCreateShouldReturnStatusCode201() {
-        //Agenda agenda = new Agenda("Atualizacao de equipamentos");
-        String  agenda = "{    \"agendaId\": 1,    \"associateId\": 1,    \"voteOption\": \"sim\"}";
+        String  agenda = "{    \"agendaId\": 1,    \"associateId\": 12,    \"voteOption\": \"YES\"}";
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agenda/sendvote",
                 // ResponseEntity<Agenda> response = restTemplate.postForEntity(restTemplate.getRootUri()+"/agenda/create", agenda, Agenda.class );
                 POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
     @Test
-    public void getAgendaListShouldReturnStatusCode201() {
+    public void getAgendaListShouldReturnStatusCode200() {
         System.out.println(restTemplate.getRootUri());
       //  ResponseEntity<String> response = restTemplate.getForEntity(restTemplate.getRootUri() +
        //         "/agenda/List", String.class);
@@ -113,7 +121,7 @@ public class RepositoryTest {
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(200);
     }
     @Test
-    public void getVotesListShouldReturnStatusCode201() {
+    public void getVotesListShouldReturnStatusCode200() {
         System.out.println(restTemplate.getRootUri());
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri() +
                 "/agenda/getvotes", GET,Headers, String.class);
@@ -121,7 +129,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void getSessionsListShouldReturnStatusCode201() {
+    public void getSessionsListShouldReturnStatusCode200() {
         System.out.println(restTemplate.getRootUri());
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri() +
                 "/agenda/getsessions", GET,Headers, String.class);
