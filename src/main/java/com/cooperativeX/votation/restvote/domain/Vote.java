@@ -1,6 +1,13 @@
 package com.cooperativeX.votation.restvote.domain;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
+@JsonAutoDetect
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Vote extends AbstractEntity {
 
@@ -10,6 +17,7 @@ public class Vote extends AbstractEntity {
     @Column(unique=true, updatable=false)
     private int associateId;
 
+    @JsonIgnoreProperties(value = {"parentActivity"})
     @Column(nullable = false)
     private String voteOption;
 
