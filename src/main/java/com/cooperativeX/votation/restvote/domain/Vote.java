@@ -1,6 +1,8 @@
 package com.cooperativeX.votation.restvote.domain;
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.*;
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Vote extends AbstractEntity {
 

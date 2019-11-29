@@ -9,11 +9,13 @@ import com.cooperativeX.votation.restvote.domain.Agenda;
 import com.cooperativeX.votation.restvote.domain.Result;
 import com.cooperativeX.votation.restvote.domain.Session;
 import com.cooperativeX.votation.restvote.domain.Vote;
+import com.cooperativeX.votation.restvote.resource.rest.AgendaRestController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Optional;
-
 
 @Service
 public class VotationServiceImpl
@@ -29,6 +31,7 @@ public class VotationServiceImpl
 
    private Session session;
    private Agenda agenda;
+    static final Logger logger = LogManager.getLogger(VotationServiceImpl.class.getName());
 
     public void CreateAgenda(Agenda pauta) {
        agendaDao.save(pauta);
@@ -51,19 +54,30 @@ public class VotationServiceImpl
         agendaDao.save(agenda);
 
     }
-
-    public void OpenSession(Session session, long id) {
-        Agenda agenda = getAgenda(id);
+    public void OpenSession(Session session) {
+        logger.debug( "xxxxxxxxxxxxxx");
+        System.out.println( "xxxxxxxxxxxxxx");
+        Agenda agenda = getAgenda(session.getAgendaId());
         session = verifySessionDuration(session);
         setSessionPeriodAndStatus(session);
         agenda.setSession(session);
         sessionDao.save(session);
         agendaDao.save(agenda);
-     }
+    }
+//    public void OpenSession(Session session, long id) {
+//        logger.debug(id + "xxxxxxxxxxxxxx");
+//        System.out.println(id + "xxxxxxxxxxxxxx");
+//        Agenda agenda = getAgenda(id);
+//        session = verifySessionDuration(session);
+//        setSessionPeriodAndStatus(session);
+//        agenda.setSession(session);
+//        sessionDao.save(session);
+//        agendaDao.save(agenda);
+//     }
 
     public Session setSessionPeriodAndStatus(Session session) {
         session.setStartVotation(Instant.now().getEpochSecond());
-         session.setEndVotation(Instant.now().getEpochSecond() + session.getDurationMinutes() * 60);
+        session.setEndVotation(Instant.now().getEpochSecond() + session.getDurationMinutes() * 60);
         session.setSessionStatus("OPENED");
         return session;
     }

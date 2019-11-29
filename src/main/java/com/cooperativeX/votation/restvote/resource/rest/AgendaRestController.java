@@ -39,28 +39,24 @@ public class AgendaRestController {
 
     @PostMapping("/agendas")
     public ResponseEntity<Void> AddAgenda(@RequestBody Agenda agenda) {
-        logger.trace(" @PostMapping - AgendaCreate");
         votationService.CreateAgenda(agenda);
     return ResponseEntity.created(genericURIPostPutLocation(agenda)).build();
     }
 
     @PostMapping("/sessions")
     public ResponseEntity<Void> CreateSession(@RequestBody Session session) {
-        logger.trace(" @PostMapping - openSession");
         votationService.CreateSession(session);
         return ResponseEntity.created(genericURIPostPutLocation(session)).build();
     }
 
     @PatchMapping("/sessions")
-    public ResponseEntity<Void> openSession(@RequestBody Session session,  @PathVariable("id") long id ) {
-        logger.trace(" @PostMapping - openSession");
-        votationService.OpenSession(session, id);
+    public ResponseEntity<Void> openSession(@RequestBody Session session ) {
+        votationService.OpenSession(session);
         return ResponseEntity.created(genericURIPostPutLocation(session)).build();
     }
 
     @PostMapping("/votations")
-    public ResponseEntity<Void> sendvote(@RequestBody Vote vote ) {
-        logger.trace(" @PostMapping - addVote");
+    public ResponseEntity<Void> AddVote(@RequestBody Vote vote ) {
         votationService.AddVote(vote);
         return ResponseEntity.created(genericURIPostPutLocation(vote)).build();
     }
@@ -86,11 +82,11 @@ public class AgendaRestController {
     @GetMapping("/results")
     @ResponseStatus(HttpStatus.OK)
     public Result GetResultAndCloseSession( @PathVariable("id") long id){
-        logger.trace("@GetMapping - getResult");
         return  votationService.endSession(id);
     }
 
     private URI genericURIPostPutLocation ( AbstractEntity entity){
+        logger.trace(entity.getId());
         URI Location  = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
