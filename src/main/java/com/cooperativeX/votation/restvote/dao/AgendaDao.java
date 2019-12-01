@@ -7,6 +7,6 @@ package com.cooperativeX.votation.restvote.dao;
         import java.util.List;
 
 @Repository
-public interface AgendaDao extends CrudRepository<Agenda, Long> {
+public interface AgendaDao extends JpaRepository<Agenda, Long> {
     List<Agenda> findAll();
 }

@@ -1,11 +1,11 @@
 package com.cooperativeX.votation.restvote.resource.rest;
 
 import com.cooperativeX.votation.restvote.dao.AgendaDao;
+import com.cooperativeX.votation.restvote.dao.ResultDao;
 import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
 import com.cooperativeX.votation.restvote.domain.*;
 import com.cooperativeX.votation.restvote.service.VotationService;
-import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,15 @@ public class AgendaRestController {
     private final AgendaDao agendaDao;
     private final SessionDao sessionDao;
     private final VoteDao voteDao;
+    private final ResultDao resultDao;
 
     @Autowired
-    public AgendaRestController(AgendaDao agendaDao, VoteDao voteDao, SessionDao sessionDao)
+    public AgendaRestController(AgendaDao agendaDao, VoteDao voteDao, SessionDao sessionDao, ResultDao resultDao)
     {
         this.agendaDao = agendaDao;
         this.sessionDao =  sessionDao;
         this.voteDao =  voteDao;
+        this.resultDao = resultDao;
     }
 
    @PostMapping("/agendas")
@@ -89,10 +91,12 @@ public class AgendaRestController {
         return  sessionDao.findById(id);
     }
 
-    @GetMapping("/results")
+    @PostMapping("/results")
     @ResponseStatus(HttpStatus.OK)
-    public Result GetResultAndCloseSession( @PathVariable("id") long id){
-        return  votationService.endSession(id);
+    public Result  GetResultAndCloseSession(@RequestParam("AgendaID") long agendaID){
+        logger.trace("@GetMapping - getResult");
+        System.out.println(agendaID);
+        return  votationService.endSession(agendaID);
     }
 
     private URI genericURIPostPutLocation ( AbstractEntity entity){

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SessionDao extends CrudRepository<Session, Long> {
+public interface SessionDao extends JpaRepository<Session, Long> {
     List<Session> findAll();
     Session save(Session session);
     Session findAllByAgendaId(long id);

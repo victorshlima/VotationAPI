@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ResultDao extends CrudRepository<Result, Long> {
+public interface ResultDao extends JpaRepository<Result, Long> {
     List<Result> findAll();
     Result save(Result result);
+    Result findAllById(long id);
+
 }

@@ -24,6 +24,9 @@ public class Result extends AbstractEntity {
     @Column(nullable = true)
     private String WinnerChoice;
 
+    public Result() {
+    }
+
     public void setWinnerChoice(String winnerChoice) {
         WinnerChoice = winnerChoice;
     }

@@ -1,10 +1,10 @@
 package com.cooperativeX.votation.restvote.domain;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -14,14 +14,14 @@ public class Agenda extends AbstractEntity {
     @Column(nullable = false)
     private String subject;
 
-    @JsonIgnoreProperties(value = {"parentActivity"})
+    @Column()
     @OneToMany( fetch = FetchType.LAZY,targetEntity = Vote.class)
-    private Set<Vote> vote= new HashSet<Vote>();
-    @JsonIgnoreProperties(value = {"parentActivity"})
+    private List<Vote> vote;
+
     @OneToOne( fetch = FetchType.LAZY,targetEntity = Result.class)
     private Result result;
-    @JsonIgnoreProperties(value = {"parentActivity"})
-    @OneToOne( fetch = FetchType.LAZY,targetEntity = Session.class)
+
+    @OneToOne
     private Session session;
 
     public void setSession(Session session) {
@@ -46,7 +46,10 @@ public class Agenda extends AbstractEntity {
         this.subject = subject;
     }
 
-    public Set<Vote> getVote() {  return vote;    }
+    public Agenda() {
+    }
+
+    public List<Vote> getVote() {  return vote;    }
 
     public void setVote(Vote vote) {
         this.vote.add(vote);
@@ -54,13 +57,8 @@ public class Agenda extends AbstractEntity {
 
     public Agenda(String subject) {
         this.subject = subject;
-        this.vote = vote;
-    }
-
-    public Agenda() {
-        this.vote = vote;
+        this.vote = (List) vote;
         this.result = new Result();
-        this.session = new Session();
     }
 
     @Override

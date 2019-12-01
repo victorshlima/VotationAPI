@@ -28,8 +28,6 @@ public class VotationService
     @Autowired
     ResultDao resultDao;
 
-    private  Result result;
-
     static final Logger logger = LogManager.getLogger(VotationService.class.getName());
     public void CreateAgenda(Agenda pauta) {
        agendaDao.save(pauta);
@@ -105,10 +103,12 @@ public class VotationService
 
     public Result endSession(long agendaId) {
         Agenda agenda =  getAgenda(agendaId);
+        Result result = new Result();
         result = CalculateResult(agendaId, result);
-        agenda.setResult(result);
         resultDao.save(result);
-        return result;
+        agenda.setResult( CalculateResult(agendaId, result));
+        agendaDao.save(agenda);
+        return agenda.getResult();
     }
 
     public Result CalculateResult (long agendaId, Result result) {
