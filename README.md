@@ -62,7 +62,7 @@ the operations.
 POST  - /sessions
 Json Exemple:
 
-# {"agendaId": 1,"sessionStatus": "NEW"}
+### {"agendaId": 1,"sessionStatus": "NEW"}
 
 agendaId - numeric - mandatory
 sessionStatus - alphanumeric - "NEW" - mandatory, case sentitive
@@ -77,7 +77,7 @@ agendaId - long -  inform the ID of Agenda
 sessionStatus": "NEW" - mandatory
 durationMinutes - Set the time in minutes, minimum 1 minute
 
-# After open the session you can send Votes
+### After open the session you can send Votes
 POST  - /votations
 Json Exemple:
 
