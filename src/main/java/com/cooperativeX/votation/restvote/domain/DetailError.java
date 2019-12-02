@@ -1,11 +1,12 @@
 package com.cooperativeX.votation.restvote.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
-
+@JsonAutoDetect
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DetailError implements Serializable {
 

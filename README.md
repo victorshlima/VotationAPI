@@ -4,25 +4,21 @@ Votation API, is cloud api rest for managing agendas and voting sessions.
 
 Sessions allow only one vote per member within the time frame determined in a voting session.
 
-
-
-
 # Development
 
 There is a pom.xml in the Server folder to compile and create the jar and build the distribution
 package using Maven The current version of the application is extracted from the POM and instered
 into the MANIFEST.MF at build time. 
 
+
 ## Installation
 
-./Procfile  - Contens a Dyno Heroku configration for virtualization on Cloud
-
-Download git project
-mvn clean install
-
-
-## Running Tests
-
+- clone git project
+- mvn clean install
+- application.properties
+./Procfile  - Conteins a Dyno Heroku configration for virtualization on Cloud.
+log4j.properties
+web.xml
 
 ##Documentation
 
@@ -39,13 +35,15 @@ https://votation-api.herokuapp.com/v1
 POST /agendas
 GET /agendas/{id}
 GET /agendas
-/agendas
-/sessions
-/votations
-/results/{id}
+POST /sessions
+PATCH /sessions
+POST /votations
+GET /results/{id}
+
+
+## Running Tests
 
 ## Roadmap
-
 
 Improve security with (Spring security)
 Add Lombook to simplify getters

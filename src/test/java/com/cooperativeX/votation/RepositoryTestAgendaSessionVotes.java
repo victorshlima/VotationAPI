@@ -9,8 +9,10 @@ import com.cooperativeX.votation.restvote.domain.*;
 import com.cooperativeX.votation.restvote.resource.rest.AgendaRestController;
 import com.cooperativeX.votation.restvote.service.VotationService;
 import org.assertj.core.api.Assertions;
-import org.junit.*;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.POST;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
@@ -37,7 +39,7 @@ import static org.springframework.http.HttpMethod.*;
         SessionDao.class, VoteDao.class,VotationService.class,  VotationService.class, AgendaRestController.class,
         Agenda.class, Vote.class, Session.class, DetailError.class, Result.class })
 
-public class RepositoryTestCriarSessao {
+public class RepositoryTestAgendaSessionVotes {
     @LocalServerPort
     private int port;
     @Rule
@@ -52,13 +54,15 @@ public class RepositoryTestCriarSessao {
     private SessionDao sessionDao;
     @Autowired
     private VoteDao voteDao;
+
+
     @Autowired
     private VotationService votationServiceImpl;
     @Autowired
     private AgendaRestController agendaRestController;
     @Autowired
     Agenda agenda;
-    @Autowired
+   @Autowired
     private TestRestTemplate restTemplate;
     private HttpEntity<Void> Headers;
 
@@ -82,39 +86,36 @@ public class RepositoryTestCriarSessao {
     }
 
     @Before
-    public void postAgendaCreateShouldReturnStatusCode201() {
+    public void CreateAgendaAndSessonAndOpenSession() {
+        postAgendaCreateShouldReturnStatusCode201();
+        postSessionCreateShouldReturnStatusCode201();
+    }
+
+   public void postAgendaCreateShouldReturnStatusCode201() {
       String  agenda = "{\"subject\": \"Update Equipments\"}";
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agendas",
      POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
          Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
+
     }
 
-    @Test
     public void postSessionCreateShouldReturnStatusCode201() {
-        String  session = "{\"agendaId\": 1,\"sessionStatus\": \"NEW\"}";
+        String  session = "{\"agendaId\": 1,\"sessionStatus\": \"NEW\", \"durationMinutes\": 1}";
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
               POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 
-    @Test
-    public void postNullSessionCreateShouldReturnStatusCode400() {
-        String  session = "";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
-                POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
-        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400);
-    }
 
     @Test
-    public void postNotExistSessionCreateShouldReturnStatusCode500() {
-        String  session = "{\"agendaId\": 99,\"sessionStatus\": \"NEW\"}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
-                POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
-        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(500);
+    public void postVoteCreateShouldReturnStatusCode201() {
+        String  agenda = "{    \"agendaId\": 1,    \"associateId\": 96222885020,    \"voteOption\": \"YES\"}";
+        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/votations",
+                POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
+        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 
-
-    @AfterAll
+    @After
     public void CleanDataBaseAfter() {
         CleanDataBase();
     }
@@ -125,4 +126,5 @@ public class RepositoryTestCriarSessao {
         sessionDao.deleteAll();
         voteDao.deleteAll();
     }
+
 }

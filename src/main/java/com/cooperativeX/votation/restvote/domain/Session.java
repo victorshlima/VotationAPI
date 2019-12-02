@@ -1,11 +1,12 @@
 package com.cooperativeX.votation.restvote.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-
+@JsonAutoDetect
 @JsonIgnoreProperties({"hibernateLazyInitializer", "parentActivity"})
 @Entity
 public class Session extends AbstractEntity {

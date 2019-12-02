@@ -5,20 +5,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 
-@JsonAutoDetect
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonAutoDetect
 @Entity
 public class Vote extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private long agendaId;
 
-    @Column(unique=true, updatable=false)
-    private int associateId;
+    @Column(unique=true, updatable=true)
+    private long associateId;
 
     @JsonIgnoreProperties(value = {"parentActivity"})
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String voteOption;
 
     public long getAgendaId() {        return agendaId;    }
@@ -27,7 +26,7 @@ public class Vote extends AbstractEntity {
         this.agendaId = agendaId;
     }
 
-    public int getAssociateId() {
+    public long getAssociateId() {
         return associateId;
     }
 

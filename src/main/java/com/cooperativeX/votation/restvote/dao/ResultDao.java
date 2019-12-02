@@ -11,5 +11,4 @@ public interface ResultDao extends JpaRepository<Result, Long> {
     List<Result> findAll();
     Result save(Result result);
     Result findAllById(long id);
-
 }

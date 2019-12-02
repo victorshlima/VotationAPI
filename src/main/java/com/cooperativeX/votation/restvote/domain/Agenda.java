@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
 
+@JsonAutoDetect
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Agenda extends AbstractEntity {
@@ -14,8 +17,8 @@ public class Agenda extends AbstractEntity {
     @Column(nullable = false)
     private String subject;
 
-    @Column()
-    @OneToMany( fetch = FetchType.LAZY,targetEntity = Vote.class)
+   // @Column()
+    @OneToMany( fetch = FetchType.LAZY,targetEntity = Vote.class, cascade = ALL)
     private List<Vote> vote;
 
     @OneToOne( fetch = FetchType.LAZY,targetEntity = Result.class)
@@ -57,7 +60,7 @@ public class Agenda extends AbstractEntity {
 
     public Agenda(String subject) {
         this.subject = subject;
-        this.vote = (List) vote;
+     //   this.vote = new ArrayList();
         this.result = new Result();
     }
 

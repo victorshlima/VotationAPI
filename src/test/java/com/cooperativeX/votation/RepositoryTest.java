@@ -106,7 +106,7 @@ public class RepositoryTest {
     public void postOpenSessionCreateShouldReturnStatusCode201() {
         String  session = "{\"agendaId\": 1,    \"sessionStatus\": \"NEW\",    \"durationMinutes\": 1}";
         ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
-              POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
+              POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 

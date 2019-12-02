@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SpringBootEssentialsApplicationTests {
 
 	@Autowired
-	AgendaDao gendaDao;
+	AgendaDao agendaDao;
 
 	@Test
 	public void contextLoads() {
