@@ -1,12 +1,14 @@
 package com.cooperativeX.votation.restvote.domain;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
 
+@JsonAutoDetect
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Agenda extends AbstractEntity {
@@ -14,28 +16,37 @@ public class Agenda extends AbstractEntity {
     @Column(nullable = false)
     private String subject;
 
-    @JsonIgnoreProperties(value = {"parentActivity"})
-    @OneToMany( fetch = FetchType.LAZY,targetEntity = Vote.class)
-    private Set<Vote> vote= new HashSet<Vote>();
-    @JsonIgnoreProperties(value = {"parentActivity"})
-    @OneToOne( fetch = FetchType.LAZY,targetEntity = Result.class)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Vote.class, cascade = ALL)
+    private Set<Vote> vote;
+
+    @OneToOne(fetch = FetchType.LAZY, targetEntity = Result.class)
     private Result result;
-    @JsonIgnoreProperties(value = {"parentActivity"})
-    @OneToOne( fetch = FetchType.LAZY,targetEntity = Session.class)
+
+    @OneToOne
     private Session session;
+
+    public Agenda() {
+    }
+
+    public Agenda(String subject) {
+        this.subject = subject;
+        this.result = new Result();
+    }
+
+    public Session getSession() {
+        return session;
+    }
 
     public void setSession(Session session) {
         this.session = session;
     }
 
-    public Session getSession() {        return session;    }
+    public Result getResult() {
+        return result;
+    }
 
     public void setResult(Result result) {
         this.result = result;
-    }
-
-    public Result getResult() {
-        return result;
     }
 
     public String getSubject() {
@@ -46,21 +57,12 @@ public class Agenda extends AbstractEntity {
         this.subject = subject;
     }
 
-    public Set<Vote> getVote() {  return vote;    }
+    public Set<Vote> getVote() {
+        return vote;
+    }
 
     public void setVote(Vote vote) {
         this.vote.add(vote);
-    }
-
-    public Agenda(String subject) {
-        this.subject = subject;
-        this.vote = vote;
-    }
-
-    public Agenda() {
-        this.vote = vote;
-        this.result = new Result();
-        this.session = new Session();
     }
 
     @Override

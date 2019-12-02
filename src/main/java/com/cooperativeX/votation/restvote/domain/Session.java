@@ -1,11 +1,13 @@
 package com.cooperativeX.votation.restvote.domain;
 
+import com.cooperativeX.votation.restvote.service.enums.SessionStatus;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-
+@JsonAutoDetect
 @JsonIgnoreProperties({"hibernateLazyInitializer", "parentActivity"})
 @Entity
 public class Session extends AbstractEntity {
@@ -14,7 +16,7 @@ public class Session extends AbstractEntity {
     private long agendaId;
 
     @Column(nullable = false)
-    private String sessionStatus;
+    private SessionStatus sessionStatus;
 
     @Column()
     private long startVotation;
@@ -25,27 +27,40 @@ public class Session extends AbstractEntity {
     @Column()
     private Integer durationMinutes;
 
-    public String getSessionStatus() {
+    public SessionStatus getSessionStatus() {
         return sessionStatus;
     }
 
-    public void setSessionStatus(String sessionStatus) {
+    public void setSessionStatus(SessionStatus sessionStatus) {
         this.sessionStatus = sessionStatus;
     }
 
-    public long getAgendaId() { return agendaId;    }
+    public long getAgendaId() {
+        return agendaId;
+    }
 
-    public void setAgendaId(long agendaId) { this.agendaId = agendaId;    }
+    public void setAgendaId(long agendaId) {
+        this.agendaId = agendaId;
+    }
 
-    public long getStartVotation() { return startVotation;    }
+    public long getStartVotation() {
+        return startVotation;
+    }
 
-    public void setStartVotation(long startVotation) { this.startVotation = startVotation;    }
+    public void setStartVotation(long startVotation) {
+        this.startVotation = startVotation;
+    }
 
-    public long getEndVotation() {  return endVotation;    }
+    public long getEndVotation() {
+        return endVotation;
+    }
 
-    public void setEndVotation(long endVotation) {  this.endVotation = endVotation;    }
+    public void setEndVotation(long endVotation) {
+        this.endVotation = endVotation;
+    }
 
-    public Integer getDurationMinutes() {     return durationMinutes;
+    public Integer getDurationMinutes() {
+        return durationMinutes;
     }
 
     public void setDurationMinutes(Integer durationMinutes) {

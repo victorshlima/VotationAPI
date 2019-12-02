@@ -1,33 +1,40 @@
 package com.cooperativeX.votation.restvote.domain;
+
+import com.cooperativeX.votation.restvote.service.enums.VoteOptions;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-@JsonAutoDetect
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonAutoDetect
 @Entity
 public class Vote extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private long agendaId;
 
-    @Column(unique=true, updatable=false)
-    private int associateId;
+    @Column(unique = true, updatable = true)
+    private long associateId;
 
     @JsonIgnoreProperties(value = {"parentActivity"})
-    @Column(nullable = false)
-    private String voteOption;
+    @Column(nullable = true)
+    private VoteOptions voteOption;
 
-    public long getAgendaId() {        return agendaId;    }
+    public Vote() {
+
+    }
+
+    public long getAgendaId() {
+        return agendaId;
+    }
 
     public void setAgendaId(long agendaId) {
         this.agendaId = agendaId;
     }
 
-    public int getAssociateId() {
+    public long getAssociateId() {
         return associateId;
     }
 
@@ -35,16 +42,12 @@ public class Vote extends AbstractEntity {
         this.associateId = associateId;
     }
 
-    public String getVoteOption() {
+    public VoteOptions getVoteOption() {
         return voteOption;
     }
 
-    public void setVoteOption(String voteOption) {
+    public void setVoteOption(VoteOptions voteOption) {
         this.voteOption = voteOption;
-    }
-
-    public Vote() {
-
     }
 
     @Override

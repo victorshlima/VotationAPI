@@ -26,9 +26,9 @@ public class SwaggerConfig {
     public Docket apiDoc() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                    .apis(RequestHandlerSelectors.basePackage("com.cooperativeX.votation.restvote.resource.rest"))
-                    .paths(regex("/v1.*"))
-                    .build()
+                .apis(RequestHandlerSelectors.basePackage("com.cooperativeX.votation.restvote.resource.rest"))
+                .paths(regex("/v1.*"))
+                .build()
                 .apiInfo(metaData());
     }
 

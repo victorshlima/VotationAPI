@@ -2,19 +2,24 @@ package com.cooperativeX.votation.restvote.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Objects;
 
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-private Long id;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Long id;
 
-    private static final long serialVersionUID =1L;
+    public AbstractEntity() {
+    }
 
     public Long getId() {
         return id;
@@ -35,8 +40,5 @@ private Long id;
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public AbstractEntity() {
     }
 }

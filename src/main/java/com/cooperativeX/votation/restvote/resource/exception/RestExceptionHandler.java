@@ -1,6 +1,6 @@
 package com.cooperativeX.votation.restvote.resource.exception;
 
-import com.cooperativeX.votation.restvote.Exception.NotExistDaoException;
+import com.cooperativeX.votation.restvote.Exception.SessionGenericExistDaoException;
 import com.cooperativeX.votation.restvote.domain.DetailError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -68,9 +68,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({
-            NotExistDaoException.class
+            SessionGenericExistDaoException.class
     })
-    public ResponseEntity<Object> entityNotFound(NotExistDaoException ex, WebRequest request) {
+    public ResponseEntity<Object> entityNotFound(SessionGenericExistDaoException ex, WebRequest request) {
         logger.error(ex.getMessage());
         return handleExceptionInternal(
                 ex, DetailError.builder()
