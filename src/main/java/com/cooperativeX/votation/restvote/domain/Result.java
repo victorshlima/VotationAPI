@@ -54,7 +54,7 @@ public class Result extends AbstractEntity {
         return votesTotal;
     }
 
-    public void setVotesTotal(int votesTotal) {
+    public void setVotesTotal(long votesTotal) {
         this.votesTotal = votesTotal;
     }
 
