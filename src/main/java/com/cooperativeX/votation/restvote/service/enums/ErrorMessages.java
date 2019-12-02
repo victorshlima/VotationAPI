@@ -18,8 +18,13 @@ public enum ErrorMessages {
         this.message = message;
     }
 
-    public int getId() { return id; }
-    public String getMessage() { return message; }
+    public int getId() {
+        return id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
 
 

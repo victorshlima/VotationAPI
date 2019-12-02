@@ -17,33 +17,54 @@ public class DetailError implements Serializable {
     private String detail;
     private String path;
 
-    public int getStatusCode() {
-        return statusCode;
-    }
-    public String getStatusMessage() {
-        return statusMessage;
-    }
-    public String getHttpMethod() {
-        return httpMethod;
-    }
-    public String getErro() {
-        return erro;
-    }
-    public String getDetail() {
-        return detail;
-    }
-    public String getPath() {
-        return path;
-    }
     public static Builder builder() {
         return new Builder();
     }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    public String getHttpMethod() {
+        return httpMethod;
+    }
+
+    public String getErro() {
+        return erro;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    @Override
+    public String toString() {
+        return "DetailError{" +
+                "statusCode=" + statusCode +
+                ", statusMessage='" + statusMessage + '\'' +
+                ", httpMethod='" + httpMethod + '\'' +
+                ", erro='" + erro + '\'' +
+                ", detail='" + detail + '\'' +
+                ", path='" + path + '\'' +
+                '}';
+    }
+
     public static class Builder {
 
         private DetailError erro;
+
         Builder() {
             this.erro = new DetailError();
         }
+
         public Builder addStatus(HttpStatus status) {
             this.erro.statusCode = status.value();
             this.erro.statusMessage = status.getReasonPhrase();
@@ -64,24 +85,14 @@ public class DetailError implements Serializable {
             this.erro.detail = detail;
             return this;
         }
+
         public Builder addPath(String path) {
             this.erro.path = path;
             return this;
         }
+
         public DetailError build() {
             return this.erro;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "DetailError{" +
-                "statusCode=" + statusCode +
-                ", statusMessage='" + statusMessage + '\'' +
-                ", httpMethod='" + httpMethod + '\'' +
-                ", erro='" + erro + '\'' +
-                ", detail='" + detail + '\'' +
-                ", path='" + path + '\'' +
-                '}';
     }
 }

@@ -5,4 +5,4 @@ public enum ResultStatus {
     NO,
     NO_VOTES_COMPUTED,
     DRAW
-    }
+}

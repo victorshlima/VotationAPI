@@ -9,7 +9,9 @@ import com.cooperativeX.votation.restvote.domain.*;
 import com.cooperativeX.votation.restvote.resource.rest.AgendaRestController;
 import com.cooperativeX.votation.restvote.service.VotationService;
 import org.assertj.core.api.Assertions;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
@@ -28,20 +30,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.POST;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @EnableAutoConfiguration
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes= {AgendaDao.class, ResultDao.class,
-        SessionDao.class, VoteDao.class,VotationService.class,  VotationService.class, AgendaRestController.class,
-        Agenda.class, Vote.class, Session.class, DetailError.class, Result.class })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {AgendaDao.class, ResultDao.class,
+        SessionDao.class, VoteDao.class, VotationService.class, VotationService.class, AgendaRestController.class,
+        Agenda.class, Vote.class, Session.class, DetailError.class, Result.class})
 
 public class RepositoryTestCriarSessao {
-    @LocalServerPort
-    private int port;
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    @Autowired
+    Agenda agenda;
+    @LocalServerPort
+    private int port;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -57,21 +61,8 @@ public class RepositoryTestCriarSessao {
     @Autowired
     private AgendaRestController agendaRestController;
     @Autowired
-    Agenda agenda;
-    @Autowired
     private TestRestTemplate restTemplate;
     private HttpEntity<Void> Headers;
-
-    @TestConfiguration
-    static class Config {
-        @Bean
-        public void contextLoads() {
-        }
-        @Bean
-        public RestTemplateBuilder restTemplateBuilder() {
-            return new RestTemplateBuilder();
-        }
-    }
 
     @Before
     public void configHeaders() {
@@ -83,36 +74,35 @@ public class RepositoryTestCriarSessao {
 
     @Before
     public void postAgendaCreateShouldReturnStatusCode201() {
-      String  agenda = "{\"subject\": \"Update Equipments\"}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/agendas",
-     POST , new HttpEntity<>(agenda,Headers.getHeaders()), String.class);
-         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
+        String agenda = "{\"subject\": \"Update Equipments\"}";
+        ResponseEntity<String> response = restTemplate.exchange(restTemplate.getRootUri() + "/agendas",
+                POST, new HttpEntity<>(agenda, Headers.getHeaders()), String.class);
+        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 
     @Test
     public void postSessionCreateShouldReturnStatusCode201() {
-        String  session = "{\"agendaId\": 1,\"sessionStatus\": \"NEW\"}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
-              POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
+        String session = "{\"agendaId\": 1,\"sessionStatus\": \"NEW\"}";
+        ResponseEntity<String> response = restTemplate.exchange(restTemplate.getRootUri() + "/sessions",
+                POST, new HttpEntity<>(session, Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 
     @Test
     public void postNullSessionCreateShouldReturnStatusCode400() {
-        String  session = "";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
-                POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
+        String session = "";
+        ResponseEntity<String> response = restTemplate.exchange(restTemplate.getRootUri() + "/sessions",
+                POST, new HttpEntity<>(session, Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400);
     }
 
     @Test
     public void postNotExistSessionCreateShouldReturnStatusCode500() {
-        String  session = "{\"agendaId\": 99,\"sessionStatus\": \"NEW\"}";
-        ResponseEntity<String> response = restTemplate.exchange( restTemplate.getRootUri()+"/sessions",
-                POST , new HttpEntity<>(session,Headers.getHeaders()), String.class);
+        String session = "{\"agendaId\": 99,\"sessionStatus\": \"NEW\"}";
+        ResponseEntity<String> response = restTemplate.exchange(restTemplate.getRootUri() + "/sessions",
+                POST, new HttpEntity<>(session, Headers.getHeaders()), String.class);
         Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(500);
     }
-
 
     @AfterAll
     public void CleanDataBaseAfter() {
@@ -124,5 +114,17 @@ public class RepositoryTestCriarSessao {
         resultDao.deleteAll();
         sessionDao.deleteAll();
         voteDao.deleteAll();
+    }
+
+    @TestConfiguration
+    static class Config {
+        @Bean
+        public void contextLoads() {
+        }
+
+        @Bean
+        public RestTemplateBuilder restTemplateBuilder() {
+            return new RestTemplateBuilder();
+        }
     }
 }

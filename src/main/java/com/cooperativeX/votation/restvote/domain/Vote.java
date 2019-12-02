@@ -1,10 +1,11 @@
 package com.cooperativeX.votation.restvote.domain;
+
 import com.cooperativeX.votation.restvote.service.enums.VoteOptions;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonAutoDetect
@@ -14,14 +15,20 @@ public class Vote extends AbstractEntity {
     @Column(nullable = true)
     private long agendaId;
 
-    @Column(unique=true, updatable=true)
+    @Column(unique = true, updatable = true)
     private long associateId;
 
     @JsonIgnoreProperties(value = {"parentActivity"})
     @Column(nullable = true)
     private VoteOptions voteOption;
 
-    public long getAgendaId() {        return agendaId;    }
+    public Vote() {
+
+    }
+
+    public long getAgendaId() {
+        return agendaId;
+    }
 
     public void setAgendaId(long agendaId) {
         this.agendaId = agendaId;
@@ -41,10 +48,6 @@ public class Vote extends AbstractEntity {
 
     public void setVoteOption(VoteOptions voteOption) {
         this.voteOption = voteOption;
-    }
-
-    public Vote() {
-
     }
 
     @Override

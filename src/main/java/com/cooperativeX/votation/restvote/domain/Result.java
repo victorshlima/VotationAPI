@@ -27,6 +27,7 @@ public class Result extends AbstractEntity {
 
     public Result() {
     }
+
     public ResultStatus getResultStatus() {
         return resultStatus;
     }

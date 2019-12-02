@@ -26,19 +26,17 @@ import java.util.Optional;
 public class AgendaRestController {
 
     static final Logger logger = LogManager.getLogger(AgendaRestController.class.getName());
-    @Autowired
-    private VotationService votationService;
     private final AgendaDao agendaDao;
     private final SessionDao sessionDao;
     private final VoteDao voteDao;
-    private final ResultDao resultDao;
+    @Autowired
+    private VotationService votationService;
 
     @Autowired
     public AgendaRestController(AgendaDao agendaDao, VoteDao voteDao, SessionDao sessionDao, ResultDao resultDao) {
         this.agendaDao = agendaDao;
         this.sessionDao = sessionDao;
         this.voteDao = voteDao;
-        this.resultDao = resultDao;
     }
 
     @PostMapping("/agendas")

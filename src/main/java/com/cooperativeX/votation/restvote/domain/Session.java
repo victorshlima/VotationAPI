@@ -35,19 +35,32 @@ public class Session extends AbstractEntity {
         this.sessionStatus = sessionStatus;
     }
 
-    public long getAgendaId() { return agendaId;    }
+    public long getAgendaId() {
+        return agendaId;
+    }
 
-    public void setAgendaId(long agendaId) { this.agendaId = agendaId;    }
+    public void setAgendaId(long agendaId) {
+        this.agendaId = agendaId;
+    }
 
-    public long getStartVotation() { return startVotation;    }
+    public long getStartVotation() {
+        return startVotation;
+    }
 
-    public void setStartVotation(long startVotation) { this.startVotation = startVotation;    }
+    public void setStartVotation(long startVotation) {
+        this.startVotation = startVotation;
+    }
 
-    public long getEndVotation() {  return endVotation;    }
+    public long getEndVotation() {
+        return endVotation;
+    }
 
-    public void setEndVotation(long endVotation) {  this.endVotation = endVotation;    }
+    public void setEndVotation(long endVotation) {
+        this.endVotation = endVotation;
+    }
 
-    public Integer getDurationMinutes() {     return durationMinutes;
+    public Integer getDurationMinutes() {
+        return durationMinutes;
     }
 
     public void setDurationMinutes(Integer durationMinutes) {
