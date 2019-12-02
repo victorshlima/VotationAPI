@@ -67,6 +67,7 @@ public class VotationService
 
     public void OpenSession(Session session) {
         Agenda agenda = getAgenda(session.getAgendaId());
+        validateOpenedSession(agenda);
         session = verifySessionDuration(session);
         setSessionPeriodAndStatus(session);
         agenda.setSession(session);
@@ -89,6 +90,12 @@ public class VotationService
         Agenda agenda =  getAgenda(agendaId);
         if(agenda.getSession() !=null)
         throw new NotExistDaoException("Error Session alredy exist");
+
+    }
+
+    private void validateOpenedSession(Agenda agenda) {
+        if(agenda.getSession().getSessionStatus().equals("OPENED"))
+            throw new NotExistDaoException("Error Session alredy Open");
     }
 
     public void 
