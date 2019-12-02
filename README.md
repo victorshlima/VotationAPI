@@ -39,8 +39,10 @@ web.xml
 
 Swagger Documentation
 
-https://votation-api.herokuapp.com/v1/v2/api-docs
-https://votation-api.herokuapp.com/v1/swagger-ui.html
+https://votation-api.herokuapp.com/v1/v2/api-docs -
+
+https://votation-api.herokuapp.com/v1/swagger-ui.html -
+
 https://votation-api.herokuapp.com/v1
 
 ### Endpoints
@@ -82,7 +84,9 @@ Json Exemple:
 ### {    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
 
 agendaId -  inform the especific AGENDA ID to Vote
+
 associateId - CPF user identification
+
 voteOption - Options "YES" - "NO" - mandatory, case sentitive
 
 
