@@ -111,7 +111,7 @@ GET /sessions/{agendaId}
 ### GET All Votes
 GET /votes
 ### ET a especific Votes
-GET /votes/{id}
+GET /votes/{agendaId}
 
 ### Running Tests
 
