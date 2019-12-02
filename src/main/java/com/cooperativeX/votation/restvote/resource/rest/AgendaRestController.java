@@ -87,17 +87,18 @@ public class AgendaRestController {
 
     @GetMapping("/session")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Session> GetSessionById(@PathVariable("id") long id){
+    public Optional<Session> GetSessionById(@PathVariable("AgendaID") long id){
         return  sessionDao.findById(id);
     }
 
-    @GetMapping("/results")
+    @GetMapping("/results/{AgendaID}")
     @ResponseStatus(HttpStatus.OK)
-    public Result  GetResultAndCloseSession(@RequestParam("AgendaID") long agendaID){
+    public Result GetResultsById(@PathVariable("AgendaID") long id){
         logger.trace("@GetMapping - getResult");
-        System.out.println(agendaID);
-        return  votationService.endSession(agendaID);
+        System.out.println(id);
+        return  votationService.endSession(id);
     }
+
 
     private URI genericURIPostPutLocation ( AbstractEntity entity){
         logger.trace(entity.getId());
