@@ -27,9 +27,9 @@ public class Result extends AbstractEntity {
 
     public Result() {
     }
-
-
-    public ResultStatus getResultStatus() {        return resultStatus;    }
+    public ResultStatus getResultStatus() {
+        return resultStatus;
+    }
 
     public void setResultStatus(ResultStatus resultStatus) {
         this.resultStatus = resultStatus;

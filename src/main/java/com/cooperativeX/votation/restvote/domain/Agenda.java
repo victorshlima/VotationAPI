@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
 
@@ -17,9 +17,8 @@ public class Agenda extends AbstractEntity {
     @Column(nullable = false)
     private String subject;
 
-   // @Column()
     @OneToMany( fetch = FetchType.LAZY,targetEntity = Vote.class, cascade = ALL)
-    private List<Vote> vote;
+    private Set<Vote> vote;
 
     @OneToOne( fetch = FetchType.LAZY,targetEntity = Result.class)
     private Result result;
@@ -52,7 +51,7 @@ public class Agenda extends AbstractEntity {
     public Agenda() {
     }
 
-    public List<Vote> getVote() {  return vote;    }
+    public Set<Vote> getVote() {  return vote;    }
 
     public void setVote(Vote vote) {
         this.vote.add(vote);
@@ -60,7 +59,6 @@ public class Agenda extends AbstractEntity {
 
     public Agenda(String subject) {
         this.subject = subject;
-     //   this.vote = new ArrayList();
         this.result = new Result();
     }
 

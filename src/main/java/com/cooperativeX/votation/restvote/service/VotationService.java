@@ -140,8 +140,8 @@ public class VotationService
     }
 
     public Result CalculateResult (long agendaId, Result result) {
-        result.setVotesTotalYes(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, "YES") );
-        result.setVotesTotalNo(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, "NO") );
+        result.setVotesTotalYes(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, VoteOptions.YES) );
+        result.setVotesTotalNo(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, VoteOptions.NO) );
         result.setVotesTotal(  result.getVotesTotalNo() + result.getVotesTotalYes()  );
         if (result.getVotesTotalYes() > result.getVotesTotalNo()){
             result.setResultStatus(ResultStatus.YES);

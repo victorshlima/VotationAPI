@@ -9,4 +9,5 @@ package com.cooperativeX.votation.restvote.dao;
 @Repository
 public interface AgendaDao extends JpaRepository<Agenda, Long> {
     List<Agenda> findAll();
+    Agenda findAllById(long id);
 }
