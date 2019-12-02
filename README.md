@@ -10,12 +10,22 @@ There is a pom.xml in the Server folder to compile and create the jar and build 
 package using Maven The current version of the application is extracted from the POM and instered
 into the MANIFEST.MF at build time. 
 
+# Tecnologies
+
+Heroku  - Cloud Server Application
+Spring Boot Application - Spring Framework
+MYSQL  - Production Environment
+H2 - Tests in memory
+Hibernate - JPA  - Persistence data
+swagger2 - Api Documentation and URI generator
+Log4J - Log appender
+
 ## Installation
 
 - clone git project
 - Import as a maven project
 
-##Documentation
+## Documentation
 
 Application and Database properties
 - application.properties
@@ -35,73 +45,70 @@ https://votation-api.herokuapp.com/v1/swagger-ui.html
 
 https://votation-api.herokuapp.com/v1
 
-#Endpoints
+# Endpoints
 
 https://votation-api.herokuapp.com/v1
 
-#Create a New Agenda
+# Create a New Agenda
 POST  - /agendas
 Json Exemple:
 
-#{"subject": "Agenda Subject exemple"}
+# {"subject": "Agenda Subject exemple"}
 
 Each AGENDA have a unique ID, you need that number for execute
 the operations.
 
-#Create a Session to vote
+# Create a Session to vote
 POST  - /sessions
 Json Exemple:
 
-#{"agendaId": 1,"sessionStatus": "NEW"}
+# {"agendaId": 1,"sessionStatus": "NEW"}
 
 agendaId - numeric - mandatory
 sessionStatus - alphanumeric - "NEW" - mandatory, case sentitive
 
-#Open Session for votes
+# Open Session for votes
 PATCH  - /sessions
 Json Exemple:
 
-#{"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
+# {"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
 
 agendaId - long -  inform the ID of Agenda
 sessionStatus": "NEW" - mandatory
 durationMinutes - Set the time in minutes, minimum 1 minute
 
-#After open the session you can send Votes
+# After open the session you can send Votes
 POST  - /votations
 Json Exemple:
 
-#{    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
+# {    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
 
 agendaId -  informe the especifi AGENDA ID to Vote
 associateId - CPF user identification
 voteOption - Options "YES" - "NO" - mandatory, case sentitive
 
 
-#You can see the result after the votations ends
+# You can see the result after the votations ends
 GET /results/{agendaId}
 
-
-
-
-#GET All Agendas
+# GET All Agendas
 GET /agendas
-#GET a especific Agenda
+# GET a especific Agenda
 GET /agendas/{agendaId}
 
-#GET All Results
+# GET All Results
 GET /results
-#GET a especific Result
+# GET a especific Result
 GET /results/{agendaId}
 
-#GET All Sessions
+# GET All Sessions
 GET /sessions
-#GET a especific sessions
+# GET a especific sessions
 GET /sessions/{agendaId}
 
-#GET All Votes
+# GET All Votes
 GET /votes
-#GET a especific Votes
+# ET a especific Votes
 GET /votes/{id}
 
 ## Running Tests
