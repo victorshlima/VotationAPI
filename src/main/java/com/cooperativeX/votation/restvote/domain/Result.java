@@ -27,6 +27,9 @@ public class Result extends AbstractEntity {
     public Result() {
     }
 
+
+    public String getWinnerChoice() {        return WinnerChoice;    }
+
     public void setWinnerChoice(String winnerChoice) {
         WinnerChoice = winnerChoice;
     }

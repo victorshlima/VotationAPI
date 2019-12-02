@@ -91,7 +91,7 @@ public class AgendaRestController {
         return  sessionDao.findById(id);
     }
 
-    @PostMapping("/results")
+    @GetMapping("/results")
     @ResponseStatus(HttpStatus.OK)
     public Result  GetResultAndCloseSession(@RequestParam("AgendaID") long agendaID){
         logger.trace("@GetMapping - getResult");

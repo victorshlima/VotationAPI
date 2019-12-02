@@ -106,7 +106,7 @@ public class VotationService
         Result result = new Result();
         result = CalculateResult(agendaId, result);
         resultDao.save(result);
-        agenda.setResult( CalculateResult(agendaId, result));
+        agenda.setResult( result);
         agendaDao.save(agenda);
         return agenda.getResult();
     }
