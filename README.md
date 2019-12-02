@@ -41,13 +41,15 @@ Swagger Documentation
 
 https://votation-api.herokuapp.com/v1/v2/api-docs
 https://votation-api.herokuapp.com/v1/swagger-ui.html
-
-
 https://votation-api.herokuapp.com/v1
 
 ### Endpoints
 
-https://votation-api.herokuapp.com/v1
+### Headers for all
+### Content-Type - application/json
+
+
+## https://votation-api.herokuapp.com/v1
 
 ### Create a New Agenda
 POST  - /agendas
