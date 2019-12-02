@@ -113,23 +113,22 @@ public class VotationService {
     }
 
     private void validateSessionPresence() {
-        if (this.agenda.getSession() != null)
+        if (this.agenda.getSession() != null){
             logger.error(ErrorMessages.SESSION_SESSION_ALREDY_EXIST.getMessage());
-            throw new SessionGenericExistDaoException(ErrorMessages.SESSION_SESSION_ALREDY_EXIST.getMessage());
+            throw new SessionGenericExistDaoException(ErrorMessages.SESSION_SESSION_ALREDY_EXIST.getMessage());}
     }
 
     private void verifyOpenedStatusSession() {
-        if (this.agenda.getSession().getSessionStatus().equals(SessionStatus.OPENED))
+        if (this.agenda.getSession().getSessionStatus().equals(SessionStatus.OPENED)){
             logger.error(ErrorMessages.SESSION_ALREDY_OPEN.getMessage());
-            throw new SessionGenericExistDaoException(ErrorMessages.SESSION_ALREDY_OPEN.getMessage());
+            throw new SessionGenericExistDaoException(ErrorMessages.SESSION_ALREDY_OPEN.getMessage());}
     }
 
     public void verifyOpenedSession(Long startSession, Long endSession) {
         if (Instant.now().getEpochSecond() <= startSession) {
             logger.error(ErrorMessages.SESSION_NOT_OPENED.getMessage());
             throw new SessionTimeException(ErrorMessages.SESSION_NOT_OPENED.getMessage());
-        }
-        if (Instant.now().getEpochSecond() >= endSession) {
+        }else if (Instant.now().getEpochSecond() >= endSession) {
             logger.error(ErrorMessages.SESSION_FININSHED.getMessage());
             throw new SessionTimeException(ErrorMessages.SESSION_FININSHED.getMessage());
         }
@@ -139,8 +138,7 @@ public class VotationService {
         if (Instant.now().getEpochSecond() <= endSession) {
             logger.error(ErrorMessages.SESSION_NOT_CLODED.getMessage());
             throw new SessionTimeException(ErrorMessages.SESSION_NOT_CLODED.getMessage());
-        }
-        if (endSession == null) {
+        }else if (endSession == null) {
             logger.error(ErrorMessages.SESSION_NOT_OPENED.getMessage());
             throw new SessionTimeException(ErrorMessages.SESSION_NOT_OPENED.getMessage());
 

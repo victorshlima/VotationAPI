@@ -32,7 +32,17 @@ https://votation-api.herokuapp.com/v1/swagger-ui.html
 
 https://votation-api.herokuapp.com/v1
 
-POST /agendas
+Create a New Agenda
+Json - {"subject": "Agenda Subject exemple"}
+
+Create a Session to vote
+POST /sessions
+Json - {"agendaId": 1,"sessionStatus": "NEW"}
+
+agendaId - numeric - mandatory
+sessionStatus - alphanumeric - "NEW" mandatory
+
+
 GET /agendas/{id}
 GET /agendas
 POST /sessions
