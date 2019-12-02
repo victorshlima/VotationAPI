@@ -98,7 +98,7 @@ GET /agendas/{agendaId}
 
 ### GET All Results
 GET /results
-# GET a especific Result
+### GET a especific Result
 GET /results/{agendaId}
 
 ### GET All Sessions
