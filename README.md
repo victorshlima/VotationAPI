@@ -17,74 +17,91 @@ into the MANIFEST.MF at build time.
 
 ##Documentation
 
+Application and Database properties
 - application.properties
-./Procfile  - Conteins a Dyno Heroku configration for virtualization on Cloud.
+
+Conteins a Dyno Heroku configuration for virtualization on Cloud.
+./Procfile
+
+Logs
 log4j.properties
 web.xml
 
+Swagger Documentation
 
+https://votation-api.herokuapp.com/v1/v2/api-docs
 https://votation-api.herokuapp.com/v1/swagger-ui.html
-#https://votation-api.herokuapp.com/v1
-
-#Endpoints
-
-
-
 
 
 https://votation-api.herokuapp.com/v1
 
-Create a New Agenda
+#Endpoints
+
+https://votation-api.herokuapp.com/v1
+
+#Create a New Agenda
 POST  - /agendas
 Json Exemple:
-{"subject": "Agenda Subject exemple"}
+
+#{"subject": "Agenda Subject exemple"}
+
 Each AGENDA have a unique ID, you need that number for execute
 the operations.
 
-
-Create a Session to vote
+#Create a Session to vote
 POST  - /sessions
 Json Exemple:
-{"agendaId": 1,"sessionStatus": "NEW"}
+
+#{"agendaId": 1,"sessionStatus": "NEW"}
 
 agendaId - numeric - mandatory
 sessionStatus - alphanumeric - "NEW" - mandatory, case sentitive
 
-Open Session for votes
+#Open Session for votes
 PATCH  - /sessions
 Json Exemple:
-{"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
+
+#{"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
+
 agendaId - long -  inform the ID of Agenda
 sessionStatus": "NEW" - mandatory
 durationMinutes - Set the time in minutes, minimum 1 minute
 
-After open you can send Votes
+#After open the session you can send Votes
 POST  - /votations
 Json Exemple:
-{    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
+
+#{    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
+
 agendaId -  informe the especifi AGENDA ID to Vote
 associateId - CPF user identification
 voteOption - Options "YES" - "NO" - mandatory, case sentitive
 
 
-GET All Agendas
+#You can see the result after the votations ends
+GET /results/{agendaId}
+
+
+
+
+#GET All Agendas
 GET /agendas
-GET a especific Agenda
-GET /agendas/{id}
+#GET a especific Agenda
+GET /agendas/{agendaId}
 
-GET All Results
+#GET All Results
 GET /results
-GET a especific Result
-GET /results/{id}
+#GET a especific Result
+GET /results/{agendaId}
 
-GET All Sessions
+#GET All Sessions
 GET /sessions
-GET a especific sessions
-GET /sessions/{id}
+#GET a especific sessions
+GET /sessions/{agendaId}
 
-GET All Votes
+#GET All Votes
 GET /votes
-GET a especific Votes
+#GET a especific Votes
 GET /votes/{id}
 
 ## Running Tests
