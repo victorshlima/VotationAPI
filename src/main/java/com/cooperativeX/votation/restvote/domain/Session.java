@@ -1,6 +1,6 @@
 package com.cooperativeX.votation.restvote.domain;
 
-import com.cooperativeX.votation.restvote.service.SessionStatus;
+import com.cooperativeX.votation.restvote.service.enums.SessionStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,5 +1,6 @@
 package com.cooperativeX.votation.restvote.domain;
 
+import com.cooperativeX.votation.restvote.service.enums.ResultStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,16 +23,16 @@ public class Result extends AbstractEntity {
     private long votesTotal;
 
     @Column(nullable = true)
-    private String WinnerChoice;
+    private ResultStatus resultStatus;
 
     public Result() {
     }
 
 
-    public String getWinnerChoice() {        return WinnerChoice;    }
+    public ResultStatus getResultStatus() {        return resultStatus;    }
 
-    public void setWinnerChoice(String winnerChoice) {
-        WinnerChoice = winnerChoice;
+    public void setResultStatus(ResultStatus resultStatus) {
+        this.resultStatus = resultStatus;
     }
 
     public long getVotesTotalYes() {
@@ -64,7 +65,7 @@ public class Result extends AbstractEntity {
                 "votesTotalYes=" + votesTotalYes +
                 ", votesTotalNo=" + votesTotalNo +
                 ", votesTotal=" + votesTotal +
-                ", WinnerChoice='" + WinnerChoice + '\'' +
+                ", resultStatus='" + resultStatus + '\'' +
                 '}';
     }
 }

@@ -1,4 +1,5 @@
 package com.cooperativeX.votation.restvote.domain;
+import com.cooperativeX.votation.restvote.service.enums.VoteOptions;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,7 +19,7 @@ public class Vote extends AbstractEntity {
 
     @JsonIgnoreProperties(value = {"parentActivity"})
     @Column(nullable = true)
-    private String voteOption;
+    private VoteOptions voteOption;
 
     public long getAgendaId() {        return agendaId;    }
 
@@ -34,11 +35,11 @@ public class Vote extends AbstractEntity {
         this.associateId = associateId;
     }
 
-    public String getVoteOption() {
+    public VoteOptions getVoteOption() {
         return voteOption;
     }
 
-    public void setVoteOption(String voteOption) {
+    public void setVoteOption(VoteOptions voteOption) {
         this.voteOption = voteOption;
     }
 

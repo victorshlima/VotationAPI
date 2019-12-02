@@ -8,8 +8,11 @@ import com.cooperativeX.votation.restvote.dao.SessionDao;
 import com.cooperativeX.votation.restvote.dao.VoteDao;
 import com.cooperativeX.votation.restvote.domain.Agenda;
 import com.cooperativeX.votation.restvote.domain.Result;
-import com.cooperativeX.votation.restvote.domain.Session;
 import com.cooperativeX.votation.restvote.domain.Vote;
+import com.cooperativeX.votation.restvote.service.enums.ErrorMessages;
+import com.cooperativeX.votation.restvote.service.enums.ResultStatus;
+import com.cooperativeX.votation.restvote.service.enums.SessionStatus;
+import com.cooperativeX.votation.restvote.service.enums.VoteOptions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,9 @@ public class VotationService
     Agenda agenda;
     SessionStatus votationStatus;
 
-
+    ErrorMessages errorMessages;
+    VoteOptions voteOptions ;
+    ResultStatus resultStatus;
 
     static final Logger logger = LogManager.getLogger(VotationService.class.getName());
     public void CreateAgenda(Agenda agenda) {
@@ -46,7 +51,7 @@ public class VotationService
         agendaDao.save(this.agenda);
     }
 
-     public void CreateSession(Session session) {
+     public void CreateSession(com.cooperativeX.votation.restvote.domain.Session session) {
         this.agenda = getAgenda(session.getAgendaId());
         session = verifySessionDuration(session);
         validateSessionPresence();
@@ -55,7 +60,7 @@ public class VotationService
         agendaDao.save(this.agenda);
     }
 
-    public void OpenSession(Session session) {
+    public void OpenSession(com.cooperativeX.votation.restvote.domain.Session session) {
         this.agenda = getAgenda(session.getAgendaId());
         verifyOpenedStatusSession();
         session = verifySessionDuration(session);
@@ -71,18 +76,21 @@ public class VotationService
         Result result  = CalculateResult(agendaId, new Result());
         resultDao.save(result);
         this.agenda.setResult( result);
+        this.agenda.getSession().setSessionStatus(votationStatus.CLOSED);
         agendaDao.save(this.agenda);
+
+
         return this.agenda.getResult();
     }
 
-    public Session setSessionPeriodAndStatus(Session session) {
+    public com.cooperativeX.votation.restvote.domain.Session setSessionPeriodAndStatus(com.cooperativeX.votation.restvote.domain.Session session) {
         session.setStartVotation(Instant.now().getEpochSecond());
         session.setEndVotation(Instant.now().getEpochSecond() + session.getDurationMinutes() * 60);
         session.setSessionStatus(votationStatus.OPENED);
         return session;
     }
 
-    public Session verifySessionDuration(Session session) {
+    public com.cooperativeX.votation.restvote.domain.Session verifySessionDuration(com.cooperativeX.votation.restvote.domain.Session session) {
         if( session.getDurationMinutes() == null){
             session.setDurationMinutes(60);
         }
@@ -97,36 +105,37 @@ public class VotationService
 
     private void validateAgendaPresence(Optional<Agenda> ObjectOptional) {
         if (!ObjectOptional.isPresent()) {
-            throw new GenericAgendaException("Error Agenda not found");
+            throw new GenericAgendaException(errorMessages.AGENDA_NOT_FOUND.getMessage());
         }
     }
 
     private void validateSessionPresence() {
         if(this.agenda.getSession() !=null)
-        throw new SessionGenericExistDaoException("Error Session alredy exist");
+        throw new SessionGenericExistDaoException(errorMessages.SESSION_SESSION_ALREDY_EXIST.getMessage());
 
     }
 
     private void verifyOpenedStatusSession() {
         if(this.agenda.getSession().getSessionStatus().equals(votationStatus.OPENED))
-            throw new SessionGenericExistDaoException("Error Session alredy Open");
+            throw new SessionGenericExistDaoException(errorMessages.SESSION_ALREDY_OPEN.getMessage());
     }
 
     public void verifyOpenedSession(Long startSession, Long endSession ) {
         if(Instant.now().getEpochSecond() <= startSession )  {
-            throw new SessionTimeException("Votation not opened yet");
+            throw new SessionTimeException(errorMessages.SESSION_NOT_OPENED.getMessage());
         }
         if(Instant.now().getEpochSecond() >= endSession )  {
-            throw new SessionTimeException("Votation Finished");
+            throw new SessionTimeException(errorMessages.SESSION_FININSHED.getMessage());
         }
     }
 
     public void verifyClosedSession( Long endSession ) {
         if(Instant.now().getEpochSecond() <= endSession )  {
-            throw new SessionTimeException("Votation not closed yet");
+            throw new SessionTimeException(errorMessages.SESSION_NOT_CLODED.getMessage());
         }
         if(endSession == null )  {
-            throw new SessionTimeException("Votation not Opened");
+          throw new SessionTimeException(errorMessages.SESSION_NOT_OPENED.getMessage());
+
         }
     }
 
@@ -135,13 +144,13 @@ public class VotationService
         result.setVotesTotalNo(  voteDao.countAllByAgendaIdAndVoteOptionEquals(agendaId, "NO") );
         result.setVotesTotal(  result.getVotesTotalNo() + result.getVotesTotalYes()  );
         if (result.getVotesTotalYes() > result.getVotesTotalNo()){
-            result.setWinnerChoice("YES");
+            result.setResultStatus(ResultStatus.YES);
         }else if (result.getVotesTotalYes() < result.getVotesTotalNo()){
-            result.setWinnerChoice("NO");
+            result.setResultStatus(ResultStatus.NO);
         }else if (result.getVotesTotalYes() == 0 && result.getVotesTotalNo() == 0){
-            result.setWinnerChoice("No votes computed");
+            result.setResultStatus(ResultStatus.NO_VOTES_COMPUTED);
         }else if (result.getVotesTotalYes() == result.getVotesTotalNo()){
-            result.setWinnerChoice("Draw");
+            result.setResultStatus(ResultStatus.DRAW);
         }
         return result;
     }
