@@ -20,7 +20,7 @@ Hibernate - JPA  - Persistence data;
 swagger2 - Api Documentation and URI generator;
 Log4J - Log appender;
 
-## Installation
+### Installation
 
 - clone git project
 - Import as a maven project
@@ -45,20 +45,20 @@ https://votation-api.herokuapp.com/v1/swagger-ui.html
 
 https://votation-api.herokuapp.com/v1
 
-# Endpoints
+### Endpoints
 
 https://votation-api.herokuapp.com/v1
 
-# Create a New Agenda
+### Create a New Agenda
 POST  - /agendas
 Json Exemple:
 
-# {"subject": "Agenda Subject exemple"}
+### {"subject": "Agenda Subject exemple"}
 
 Each AGENDA have a unique ID, you need that number for execute
 the operations.
 
-# Create a Session to vote
+### Create a Session to vote
 POST  - /sessions
 Json Exemple:
 
@@ -67,11 +67,11 @@ Json Exemple:
 agendaId - numeric - mandatory
 sessionStatus - alphanumeric - "NEW" - mandatory, case sentitive
 
-# Open Session for votes
+### Open Session for votes
 PATCH  - /sessions
 Json Exemple:
 
-# {"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
+### {"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
 
 agendaId - long -  inform the ID of Agenda
 sessionStatus": "NEW" - mandatory
@@ -81,37 +81,37 @@ durationMinutes - Set the time in minutes, minimum 1 minute
 POST  - /votations
 Json Exemple:
 
-# {    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
+### {    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
 
 agendaId -  informe the especifi AGENDA ID to Vote
 associateId - CPF user identification
 voteOption - Options "YES" - "NO" - mandatory, case sentitive
 
 
-# You can see the result after the votations ends
+### You can see the result after the votations ends
 GET /results/{agendaId}
 
-# GET All Agendas
+### GET All Agendas
 GET /agendas
-# GET a especific Agenda
+### GET a especific Agenda
 GET /agendas/{agendaId}
 
-# GET All Results
+### GET All Results
 GET /results
 # GET a especific Result
 GET /results/{agendaId}
 
-# GET All Sessions
+### GET All Sessions
 GET /sessions
-# GET a especific sessions
+### GET a especific sessions
 GET /sessions/{agendaId}
 
-# GET All Votes
+### GET All Votes
 GET /votes
-# ET a especific Votes
+### ET a especific Votes
 GET /votes/{id}
 
-## Running Tests
+### Running Tests
 
 - mvn clean install
 
