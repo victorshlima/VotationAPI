@@ -12,13 +12,13 @@ into the MANIFEST.MF at build time.
 
 # Tecnologies
 
-Heroku  - Cloud Server Application
-Spring Boot Application - Spring Framework
-MYSQL  - Production Environment
-H2 - Tests in memory
-Hibernate - JPA  - Persistence data
-swagger2 - Api Documentation and URI generator
-Log4J - Log appender
+Heroku  - Cloud Server Application;
+Spring Boot Application - Spring Framework;
+MYSQL  - Production Environment;
+H2 - Tests in memory;
+Hibernate - JPA  - Persistence data;
+swagger2 - Api Documentation and URI generator;
+Log4J - Log appender;
 
 ## Installation
 
