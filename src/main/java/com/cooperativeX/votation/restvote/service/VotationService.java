@@ -36,19 +36,21 @@ public class VotationService {
     ResultDao resultDao;
     Agenda agenda;
 
-    public void CreateAgenda(Agenda agenda)
+    public Agenda CreateAgenda(Agenda agenda)
     {
         logger.debug(agenda.toString());
         agendaDao.save(agenda);
+        return agenda;
     }
 
-    public void AddVote(Vote vote) {
+    public long AddVote(Vote vote) {
         logger.debug(vote.toString());
         this.agenda = getAgenda(vote.getAgendaId());
         verifyOpenedSession(this.agenda.getSession().getStartVotation(), this.agenda.getSession().getEndVotation());
         this.agenda.setVote(vote);
         voteDao.save(vote);
         agendaDao.save(this.agenda);
+        return vote.getId();
     }
 
     public void CreateSession(Session session) {

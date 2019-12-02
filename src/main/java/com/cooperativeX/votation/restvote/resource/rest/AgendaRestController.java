@@ -40,9 +40,9 @@ public class AgendaRestController {
     }
 
     @PostMapping("/agendas")
-    public ResponseEntity<Void> AddAgenda(@RequestBody Agenda agenda) {
+    public Agenda AddAgenda(@RequestBody Agenda agenda) {
         votationService.CreateAgenda(agenda);
-        return ResponseEntity.created(genericURIPostPutLocation(agenda)).build();
+        return votationService.CreateAgenda(agenda);
     }
 
     @GetMapping("/agendas")
