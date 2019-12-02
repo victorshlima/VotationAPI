@@ -54,7 +54,6 @@ https://votation-api.herokuapp.com/v1
 ### Create a New Agenda
 POST  - /agendas
 Json Exemple:
-
 ### {"subject": "Agenda Subject exemple"}
 
 Each AGENDA have a unique ID, you need that number for execute
@@ -63,7 +62,6 @@ the operations.
 ### Create a Session to vote
 POST  - /sessions
 Json Exemple:
-
 ### {"agendaId": 1,"sessionStatus": "NEW"}
 
 agendaId - numeric - mandatory
@@ -72,7 +70,6 @@ sessionStatus - alphanumeric - "NEW" - mandatory, case sentitive
 ### Open Session for votes
 PATCH  - /sessions
 Json Exemple:
-
 ### {"agendaId": 1,"sessionStatus": "NEW","durationMinutes": 1}
 
 agendaId - long -  inform the ID of Agenda
@@ -82,10 +79,9 @@ durationMinutes - Set the time in minutes, minimum 1 minute
 ### After open the session you can send Votes
 POST  - /votations
 Json Exemple:
-
 ### {    "agendaId": 1,    "associateId": 96222885020,    "voteOption": "YES"}
 
-agendaId -  informe the especifi AGENDA ID to Vote
+agendaId -  inform the especific AGENDA ID to Vote
 associateId - CPF user identification
 voteOption - Options "YES" - "NO" - mandatory, case sentitive
 
