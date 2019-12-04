@@ -11,4 +11,6 @@ public interface AgendaDao extends JpaRepository<Agenda, Long> {
     List<Agenda> findAll();
 
     Agenda findAllById(long id);
+
+Agenda countAllBySessionLike();
 }

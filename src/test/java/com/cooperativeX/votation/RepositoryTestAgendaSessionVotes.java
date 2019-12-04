@@ -64,6 +64,10 @@ public class RepositoryTestAgendaSessionVotes {
     private TestRestTemplate restTemplate;
     private HttpEntity<Void> Headers;
 
+
+
+
+
     @Before
     public void configHeaders() {
         CleanDataBase();
